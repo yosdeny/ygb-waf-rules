@@ -1,0 +1,315 @@
+{
+  "version": "6.0.0",
+  "updated_at": "2026-08-17T00:00:00Z",
+  "rule_count": 32,
+  "rules": [
+    {
+      "num": 167,
+      "id": "XSS-EVENT-HANDLER-ENHANCED",
+      "pattern": "/(?:on(?:load|error|focus|blur|click|dblclick|mousedown|mouseup|mouseover|mouseout|mousemove|keydown|keyup|keypress|submit|reset|change|select|input|cut|copy|paste|drag|drop|dragstart|dragend|dragenter|dragover|dragleave|touchstart|touchend|touchmove|touchcancel|gesturestart|gesturechange|gestureend|animationstart|animationend|animationiteration|transitionend|scroll|wheel|contextmenu|show|hide|toggle|open|close|beforescriptexecute|afterscriptexecute|message|error|abort|loadstart|loadend|loadprogress|canplay|canplaythrough|durationchange|emptied|ended|loadeddata|loadedmetadata|pause|play|playing|progress|ratechange|seeked|seeking|stalled|suspend|timeupdate|volumechange|waiting))\\s*=\\s*[\"']?\\s*(?:(?:j\\s*a\\s*v\\s*a\\s*s\\s*c\\s*r\\s*i\\s*p\\s*t\\s*:|v\\s*b\\s*s\\s*c\\s*r\\s*i\\s*p\\s*t\\s*:)|(?:d\\s*a\\s*t\\s*a\\s*:\\s*t\\s*e\\s*x\\s*t\\s*\\/\\s*h\\s*t\\s*m\\s*l)|(?:e\\s*x\\s*p\\s*r\\s*e\\s*s\\s*s\\s*i\\s*o\\s*n\\s*\\()|(?:&#(?:x[0-9a-fA-F]{1,4}|[0-9]{1,5});|\\\\[xX][0-9a-fA-F]{2,4}){2,})[^\"']*[\"']?/i",
+      "severity": "high",
+      "description": "XSS: on* event handlers con javascript:, data:text/html, vbscript: o expression()",
+      "target": "all",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_xss_allowed"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 168,
+      "id": "XSS-SRC-HREF-ENHANCED",
+      "pattern": "/(?:src|href|action|formaction|poster|background|cite|data|codebase|archive|usemap|profile|longdesc|srcset|srcdoc|manifest|icon|prefetch|preload|ping|download)\\s*=\\s*[\"']?\\s*(?:javascript:|data:text\\/html|vbscript:|expression\\()/i",
+      "severity": "high",
+      "description": "XSS: atributos src/href con javascript:, data:text/html o expression()",
+      "target": "all",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_xss_allowed"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 169,
+      "id": "XSS-OBFUSCATED-ENHANCED",
+      "pattern": "/(?:&#(?:x[0-9a-fA-F]{1,4}|[0-9]{1,5});|\\\\(?:x[0-9a-fA-F]{2,4}|u[0-9a-fA-F]{4})|\\+ADw\\-|\\xc2\\xbc|%[0-9a-fA-F]{2}){4,50}.*?(?:script|alert|on[a-z]+\\s*=|javascript:)/i",
+      "severity": "high",
+      "description": "XSS ofuscado avanzado: entidades HTML, Unicode, encodings",
+      "target": "all",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_xss_allowed"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 170,
+      "id": "SQLi-ORDERBY-TIME",
+      "pattern": "/(?:ORDER\\s+BY|GROUP\\s+BY|HAVING)\\s+\\d+\\s*(?:,|;|--|#).*?(?:SLEEP\\s*\\(|BENCHMARK\\s*\\(|WAITFOR\\s+DELAY|IF\\s*\\(|CASE\\s+WHEN|SUBSTRING\\s*\\(|ASCII\\s*\\(|ORD\\s*\\(|CHAR\\s*\\(|CONCAT\\s*\\(|ELT\\s*\\(|FIELD\\s*\\(|FIND_IN_SET\\s*\\(|EXTRACTVALUE\\s*\\(|UPDATEXML\\s*\\(|EXP\\s*\\(\\s*~)/i",
+      "severity": "critical",
+      "description": "SQLi en ORDER BY/GROUP BY/HAVING con funciones de tiempo",
+      "target": "query|post",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 171,
+      "id": "SQLi-META-VALUE",
+      "pattern": "/(?:meta_(?:key|value)|post_meta|user_meta|option_name|option_value)\\s*=\\s*[^&]*\\b(?:UNION\\s+SELECT|SLEEP\\s*\\(|BENCHMARK\\s*\\(|CONCAT\\s*\\(|CHAR\\s*\\(|0x[0-9a-f]{4,})/i",
+      "severity": "critical",
+      "description": "SQLi en meta_value/meta_key",
+      "target": "query|post",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 172,
+      "id": "SQLi-IF-CASE-SLEEP",
+      "pattern": "/(?:IF\\s*\\(\\s*\\d+\\s*,\\s*SLEEP\\s*\\(|CASE\\s+WHEN\\s+[^)]+THEN\\s+SLEEP\\s*\\(|IFNULL\\s*\\(\\s*SLEEP\\s*\\(|COALESCE\\s*\\(\\s*SLEEP\\s*\\(|NULLIF\\s*\\(\\s*SLEEP\\s*\\()/i",
+      "severity": "critical",
+      "description": "SQLi con IF/CASE + SLEEP (blind SQL injection)",
+      "target": "query|post",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 173,
+      "id": "REST-PLUGIN-UNATH",
+      "pattern": "/(?:wp-json\\/(?:give|kirki|jet-engine|cocart|jet-elements|gamipress|complianz|edd|learndash|memberpress|restricted-content|user-registration|wp-user-avatar|ultimate-member|paid-memberships-pro|restrict-content-pro|woocommerce\\/wp-json))\\/(?:v\\d+\\/)?[^\\/?]*(?:delete|update|create|import|export|install|activate|deactivate|edit|save|publish|trash|restore|set|add|remove|assign|grant|revoke|switch|impersonate|masquerade|login|logout|register|reset|change)/i",
+      "severity": "critical",
+      "description": "Missing Authorization: plugins críticos",
+      "target": "uri|post|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 174,
+      "id": "AJAX-PLUGIN-UNATH",
+      "pattern": "/(?:admin-ajax\\.php\\?.*?action=(?:give|kirki|jet-engine|cocart|jet-elements|gamipress|complianz|edd|learndash|memberpress|ultimate-member|restricted-content|user-registration|wp-user-avatar|paid-memberships-pro|restrict-content-pro|woocommerce|wpseo|yoast|wordfence|wpmudev|elementor|beaver|divi|visual-composer|wpbakery))/i",
+      "severity": "critical",
+      "description": "AJAX plugins críticos sin autenticación",
+      "target": "uri|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_ajax_no_referer"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 175,
+      "id": "GIVEWP-SQLI",
+      "pattern": "/(?:give|donation|donor|form|payment|gateway|subscription|recurring|campaign)\\s*=\\s*[^&]*\\b(?:UNION\\s+SELECT|SLEEP\\s*\\(|CONCAT\\s*\\(|CHAR\\s*\\(|0x[0-9a-f]{4,})/i",
+      "severity": "critical",
+      "description": "GiveWP SQL Injection",
+      "target": "query|post",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 176,
+      "id": "GIVEWP-UNATH",
+      "pattern": "/\\/wp-json\\/give-api\\/v\\d+\\/(?:donations|donors|forms|reports|settings|export|import|delete|update|create)/i",
+      "severity": "high",
+      "description": "GiveWP endpoints no autenticados",
+      "target": "uri",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 177,
+      "id": "KIRKI-SSRF",
+      "pattern": "/\\/wp-json\\/kirki\\/v\\d+\\/.*?(?:url|src|href)\\s*=\\s*(?:https?:)?\\/\\/(?:127\\.0\\.0\\.1|localhost|10\\.|172\\.(?:1[6-9]|2\\d|3[01])\\.|192\\.168\\.|169\\.254\\.)/i",
+      "severity": "high",
+      "description": "Kirki SSRF (CVE-2026-13147)",
+      "target": "uri|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 178,
+      "id": "KIRKI-XSS",
+      "pattern": "/(?:kirki|customizer|field|setting|control|section|panel|option)\\s*=\\s*[\"']?[^\"']*(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html)/i",
+      "severity": "high",
+      "description": "Kirki XSS via field settings injection",
+      "target": "post|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_xss_allowed"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 179,
+      "id": "COCART-UNATH",
+      "pattern": "/\\/wp-json\\/cocart\\/v\\d+\\/(?:cart|checkout|coupon|product|customer|order|item|add|remove|update|clear|restore|empty)/i",
+      "severity": "high",
+      "description": "CoCart REST API – endpoints no autenticados",
+      "target": "uri",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 180,
+      "id": "COCART-PUT-DELETE",
+      "pattern": "/\\/wp-json\\/cocart\\/v\\d+\\/.*(?:PUT|DELETE|PATCH)/i",
+      "severity": "critical",
+      "description": "CoCart – operaciones PUT/DELETE/PATCH sin autenticación",
+      "target": "headers|uri",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 181,
+      "id": "JETENGINE-META",
+      "pattern": "/\\/wp-json\\/jet-engine\\/v\\d+\\/(?:meta|fields|options|relations|post|user|term|comment|repeater|gallery|map|listing|calendar|data)/i",
+      "severity": "high",
+      "description": "JetEngine – endpoints de meta sin autenticación",
+      "target": "uri",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 182,
+      "id": "JETENGINE-XSS",
+      "pattern": "/\\[jet_engine[^\\]]*?(?:field|meta|option|relation|repeater|gallery|map|listing|calendar|data)[^\\]]*\\]/i",
+      "severity": "high",
+      "description": "JetEngine XSS via shortcode injection",
+      "target": "post|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_xss_allowed"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 183,
+      "id": "GAMIPRESS-UNATH",
+      "pattern": "/\\/wp-json\\/gamipress\\/v\\d+\\/(?:achievements|points|ranks|logs|notifications|activity|events|triggers|add|remove|grant|revoke)/i",
+      "severity": "high",
+      "description": "GamiPress – endpoints sin autenticación",
+      "target": "uri",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_logged_in"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 184,
+      "id": "COMPLIANZ-XSS",
+      "pattern": "/(?:complianz|cookie|banner|notice|policy|consent|block|allow|decline|dismiss|save|update|reset)\\s*=\\s*[\"']?[^\"']*(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html)/i",
+      "severity": "high",
+      "description": "Complianz GDPR – XSS via banner settings",
+      "target": "post|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_xss_allowed"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 185,
+      "id": "XSS-ENHANCED",
+      "pattern": "/<script[^>]*>.*?<\\/script>|javascript:[^\"']*+/is",
+      "severity": "high",
+      "description": "XSS script tag (mejorado)",
+      "target": "all",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_admin"],
+      "added_in": "5.22.0"
+    },
+    {
+      "num": 186,
+      "id": "SQLi-OR-NUMERIC",
+      "pattern": "/\\d+\\s*['\"]?\\s*OR\\s*['\"]?\\s*\\d+\\s*=\\s*\\d+/i",
+      "severity": "high",
+      "description": "SQL injection OR con número inicial",
+      "target": "query|uri",
+      "added_in": "5.22.0"
+    },
+    {
+      "num": 187,
+      "id": "SQLi-COMMENT",
+      "pattern": "/\\b(?:OR|AND|SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b[^&]*?(?:--|#)/i",
+      "severity": "high",
+      "description": "SQL injection con comentario -- o #",
+      "target": "query|uri",
+      "added_in": "5.22.0"
+    },
+    {
+      "num": 188,
+      "id": "ADMIN-PANELS",
+      "pattern": "/\\/(?:phpmyadmin|myadmin|adminer|pma|mysql|phpPgAdmin|pgadmin|mongo|redis|webmin|cpanel|whm|plesk)(?:\\/|$)/i",
+      "severity": "critical",
+      "description": "Bloqueo de paneles de administración genéricos",
+      "target": "uri",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_not_admin"],
+      "added_in": "5.22.0"
+    },
+    {
+      "num": 189,
+      "id": "SQLi-COMMENT-NUMERIC",
+      "pattern": "/\\d+\\s*['\"]\\s*--/i",
+      "severity": "high",
+      "description": "SQL injection con comentario después de número y comilla",
+      "target": "query|uri",
+      "added_in": "5.22.29"
+    },
+    {
+      "num": 190,
+      "id": "MU-PLUGINS-DIRECT-ACCESS",
+      "pattern": "/\\/wp-content\\/mu-plugins\\/.*\\.php(?:\\?.*)?$/i",
+      "severity": "critical",
+      "description": "Acceso HTTP directo a archivos en /mu-plugins/",
+      "target": "uri",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 191,
+      "id": "PHP-EXECUTION-CACHE-LANG",
+      "pattern": "/\\/wp-content\\/(?:cache|upgrade|languages|wflogs)\\/.*\\.(?:php|phtml|phar|php[5-8])(?:\\?.*)?$/i",
+      "severity": "critical",
+      "description": "Ejecución de PHP en directorios de cache, upgrade, languages o wflogs",
+      "target": "uri",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 192,
+      "id": "MAGIC-AUTH-PARAMETERS",
+      "pattern": "/_wplogin=[^&\\s]+|magic_login=[^&\\s]+|auth_token=[^&\\s]+|secret_key=[^&\\s]+|bypass_auth=[^&\\s]+|admin_token=[^&\\s]+/i",
+      "severity": "critical",
+      "description": "Intento de autenticación mediante parámetros mágicos",
+      "target": "query|cookies",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 193,
+      "id": "BDTHEMES-WEBSHELL",
+      "pattern": "/emer-run\\.php/i",
+      "severity": "critical",
+      "description": "BdThemes Supply Chain: Bloqueo de acceso al webshell emer-run.php",
+      "target": "uri",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 194,
+      "id": "BDTHEMES-MUPLUGINS",
+      "pattern": "/\\/wp-content\\/mu-plugins\\/(?:class-wp-token-validate\\.php|wp-cache-optimizer\\.php|class-wp-query-[a-z0-9\\-]+\\.php)/i",
+      "severity": "critical",
+      "description": "BdThemes Supply Chain: Bloqueo de MU-plugins de persistencia",
+      "target": "uri",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 195,
+      "id": "BDTHEMES-FAKE-PLUGIN",
+      "pattern": "/\\/wp-content\\/plugins\\/wp-smart-thumbnails\\//i",
+      "severity": "critical",
+      "description": "BdThemes Supply Chain: Bloqueo de acceso a plugin falso wp-smart-thumbnails",
+      "target": "uri",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 196,
+      "id": "ROGUE-USER-CREATION",
+      "pattern": "/[\"']?(?:user_login|username|log)[\"']?\\s*[:=]\\s*[\"']?bd_[a-z0-9]{6}[\"']?|[\"']?(?:user_email|email)[\"']?\\s*[:=]\\s*[\"']?[^\"']*@(?:developer\\.)?wordpress\\.org[\"']?/i",
+      "severity": "critical",
+      "description": "Intento de creación de usuario rogue (patrón bd_ o email falso de wordpress.org)",
+      "target": "post|query",
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 197,
+      "id": "PLUGIN-UPLOAD-NO-REFERER",
+      "pattern": "/action=(?:upload-plugin|install-plugin)/i",
+      "severity": "critical",
+      "description": "Subida de plugins sin origen legítimo en el dashboard",
+      "target": "query|post",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_plugin_upload_referer"],
+      "added_in": "5.22.42"
+    },
+    {
+      "num": 198,
+      "id": "UPB-AUTH-BYPASS",
+      "pattern": "/(?:username|user_login|log)[\"\\s:=]+[\"']?[a-zA-Z0-9_\\-\\.@]{61,70}[\"']?/i",
+      "severity": "critical",
+      "description": "CVE-2026-15826: User Profile Builder authentication bypass via oversized username",
+      "target": "post|query",
+      "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_profile_builder_endpoint"],
+      "added_in": "6.0.0",
+      "cve": "CVE-2026-15826"
+    }
+  ]
+}
