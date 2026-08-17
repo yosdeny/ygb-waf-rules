@@ -36,7 +36,9 @@ El archivo `rules.json` tiene esta estructura:
   ]
 }
 ```
-## Campos de Regla:
+# Reglas de seguridad - Documentación
+
+## 1. Campos de la regla
 
 | Campo       | Tipo   | Descripción                                                      |
 |-------------|--------|------------------------------------------------------------------|
@@ -49,3 +51,16 @@ El archivo `rules.json` tiene esta estructura:
 | condition   | mixed  | Condición opcional para aplicar la regla                         |
 | cve         | string | ID del CVE (opcional)                                            |
 | added_in    | string | Versión en que se añadió                                         |
+
+---
+
+## 2. Ejemplo de regla (poblada)
+
+**Metadatos del conjunto:**  
+- **Versión:** 6.0.1  
+- **Actualizado:** 2026-08-17T00:00:00Z  
+- **Total de reglas:** 33  
+
+| num | id                           | pattern                                                                                 | severity | description                                            | target     | condition                                                                                                                                                          | cve             | added_in |
+|-----|------------------------------|-----------------------------------------------------------------------------------------|----------|--------------------------------------------------------|------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------|----------|
+| 199 | CVE-2026-15988-AI-ENGINE-CSRF | `/\\/wp-json\\/wp\\/v2\\/users.*[?&]_method\\s*=\\s*POST/i`                              | critical | CVE-2026-15988: AI Engine CSRF privilege escalation    | `uri\|query` | `{"operator":"AND","conditions":[{"type":"user_not_logged_in"},{"type":"param_exists","param":"_method"}]}` | CVE-2026-15988  | 6.0.1    |
