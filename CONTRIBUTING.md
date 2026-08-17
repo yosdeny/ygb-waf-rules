@@ -39,8 +39,11 @@ El archivo `rules.json` tiene esta estructura:
 ## Campos de Regla:
 
 Campo         Tipo        Descripción
+
 num           int         Número de regla (orden de evaluación)
+
 id            string      Identificador único
+
 pattern       string      Expresión regular PHP
 severity      string      Severidad: low, medium, high, critical
 description   string      Descripción legible
