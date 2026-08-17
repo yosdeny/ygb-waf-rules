@@ -38,16 +38,14 @@ El archivo `rules.json` tiene esta estructura:
 ```
 ## Campos de Regla:
 
-Campo         Tipo        Descripción
-
-num           int         Número de regla (orden de evaluación)
-
-id            string      Identificador único
-
-pattern       string      Expresión regular PHP
-severity      string      Severidad: low, medium, high, critical
-description   string      Descripción legible
-target        string      Dónde inspeccionar: uri, query, post, headers, cookies, all, etc.
-condition     mixed       Condición opcional para aplicar la regla
-cve           string      ID del CVE (opcional)
-added_in      string      Versión en que se añadió
+| Campo       | Tipo   | Descripción                                                      |
+|-------------|--------|------------------------------------------------------------------|
+| num         | int    | Número de regla (orden de evaluación)                            |
+| id          | string | Identificador único                                              |
+| pattern     | string | Expresión regular PHP                                            |
+| severity    | string | Severidad: low, medium, high, critical                           |
+| description | string | Descripción legible                                              |
+| target      | string | Dónde inspeccionar: uri, query, post, headers, cookies, all, etc. |
+| condition   | mixed  | Condición opcional para aplicar la regla                         |
+| cve         | string | ID del CVE (opcional)                                            |
+| added_in    | string | Versión en que se añadió                                         |
