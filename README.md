@@ -4,14 +4,14 @@ Reglas actualizadas para el plugin YGB Escudo 2 de WordPress.
 
 ## Cómo usar
 
-### Opción 1: Actualizar el plugin
+### Opción 1: Actualizar el plugin (No disponible)
 Instala la última versión de YGB Escudo 2 desde WordPress.org. 
 Incluye las reglas más recientes embebidas.
 
 ### Opción 2: Actualización manual (más rápida)
 Si necesitas las últimas reglas antes del próximo release:
 
-1. Descarga `rules.json` de la [última release]([https://github.com/YGB-Security/ygb-waf-rules/releases/latest](https://github.com/yosdeny/ygb-waf-rules/releases))
+1. Descarga `rules.json` de la [última release]([https://github.com/YGB-Security/ygb-waf-rules/releases])
 2. En tu WordPress: YGB Escudo 2 → Reglas WAF → pestaña "Actualizaciones"
 3. Sube el archivo `rules.json`
 4. Listo. Las reglas se aplican inmediatamente.
