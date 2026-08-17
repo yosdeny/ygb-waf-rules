@@ -1,7 +1,7 @@
 {
-  "version": "6.0.0",
-  "updated_at": "2026-08-17T00:00:00Z",
-  "rule_count": 32,
+  "version": "6.0.1",
+  "updated_at": "2026-08-15T00:00:00Z",
+  "rule_count": 33,
   "rules": [
     {
       "num": 167,
@@ -201,7 +201,7 @@
     },
     {
       "num": 187,
-      "id": "SQLi-COMMENT",
+      "id": "SQLi-COMMENT-EXT",
       "pattern": "/\\b(?:OR|AND|SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b[^&]*?(?:--|#)/i",
       "severity": "high",
       "description": "SQL injection con comentario -- o #",
@@ -310,6 +310,23 @@
       "condition": ["YGB_Escudo_2_WAF_Callbacks", "check_user_profile_builder_endpoint"],
       "added_in": "6.0.0",
       "cve": "CVE-2026-15826"
+    },
+    {
+      "num": 199,
+      "id": "CVE-2026-15988-AI-ENGINE-CSRF",
+      "pattern": "/\\/wp-json\\/wp\\/v2\\/users.*[?&]_method\\s*=\\s*POST.*(?:username|user_login|password|email|roles?|user_email)/i",
+      "severity": "critical",
+      "description": "CVE-2026-15988: AI Engine CSRF privilege escalation via REST API method override",
+      "target": "uri|query",
+      "condition": {
+        "operator": "AND",
+        "conditions": [
+          {"type": "user_not_logged_in"},
+          {"type": "param_exists", "param": "_method"}
+        ]
+      },
+      "added_in": "6.0.1",
+      "cve": "CVE-2026-15988"
     }
   ]
 }
