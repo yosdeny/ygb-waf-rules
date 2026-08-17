@@ -22,8 +22,8 @@ Si las reglas personalizadas causan problemas, usa el botón
 
 ## Releases
 
-- **v6.1.0** (2026-09-01): 199 reglas (+CVE-2026-99999)
-- **v6.0.0** (2026-08-17): 198 reglas (lanzamiento inicial)
+- **v6.0.1** (2026-08-17): 33 reglas extendidas (+CVE-2026-15988, renombrado SQLi-COMMENT-EXT)
+- **v6.0.0** (2026-08-17): 32 reglas extendidas (lanzamiento inicial)
 
 ## Para contribuidores
 
