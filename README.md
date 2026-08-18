@@ -13,6 +13,7 @@ Plugin: https://wordpress.org/plugins/ygb-escudo-2/
 
 ## Releases
 
+- v6.1.3 (2026-08-18): 34 reglas extendidas - Añade CVE-2026-15748 (Forminator) (AI Engine CSRF)
 - v6.0.1 (2026-08-17): 33 reglas extendidas - Añade CVE-2026-15988 (AI Engine CSRF)
 - v6.0.0 (2026-08-17): 32 reglas extendidas - Lanzamiento inicial
 
