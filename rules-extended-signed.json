@@ -1,8 +1,8 @@
 {
     "payload": {
-        "version": "6.2.2",
-        "updated_at": "2026-08-21T00:00:00Z",
-        "rule_count": 102,
+        "version": "6.7.0",
+        "updated_at": "2026-09-24T00:00:00Z",
+        "rule_count": 137,
         "rules": [
             {
                 "num": 167,
@@ -124,19 +124,6 @@
             },
             {
                 "num": 177,
-                "id": "KIRKI-SSRF",
-                "pattern": "\/\\\/wp-json\\\/kirki\\\/v\\d+\\\/.*?(?:url|src|href)\\s*=\\s*(?:https?:)?\\\/\\\/(?:127\\.0\\.0\\.1|localhost|10\\.|172\\.(?:1[6-9]|2\\d|3[01])\\.|192\\.168\\.|169\\.254\\.)\/i",
-                "severity": "high",
-                "description": "Kirki SSRF (CVE-2026-13147)",
-                "target": "uri|query",
-                "condition": [
-                    "YGB_Escudo_2_WAF_Callbacks",
-                    "check_user_not_logged_in"
-                ],
-                "added_in": "5.22.42"
-            },
-            {
-                "num": 178,
                 "id": "KIRKI-XSS",
                 "pattern": "\/(?:kirki|customizer|field|setting|control|section|panel|option)\\s*=\\s*[\"']?[^\"']*(?:<script|javascript:|on[a-z]+\\s*=|data:text\\\/html)\/i",
                 "severity": "high",
@@ -149,7 +136,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 179,
+                "num": 178,
                 "id": "COCART-UNATH",
                 "pattern": "\/\\\/wp-json\\\/cocart\\\/v\\d+\\\/(?:cart|checkout|coupon|product|customer|order|item|add|remove|update|clear|restore|empty)\/i",
                 "severity": "high",
@@ -162,7 +149,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 180,
+                "num": 179,
                 "id": "COCART-PUT-DELETE",
                 "pattern": "\/\\\/wp-json\\\/cocart\\\/v\\d+\\\/.*(?:PUT|DELETE|PATCH)\/i",
                 "severity": "critical",
@@ -175,7 +162,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 181,
+                "num": 180,
                 "id": "JETENGINE-META",
                 "pattern": "\/\\\/wp-json\\\/jet-engine\\\/v\\d+\\\/(?:meta|fields|options|relations|post|user|term|comment|repeater|gallery|map|listing|calendar|data)\/i",
                 "severity": "high",
@@ -188,7 +175,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 182,
+                "num": 181,
                 "id": "JETENGINE-XSS",
                 "pattern": "\/\\[jet_engine[^\\]]*?(?:field|meta|option|relation|repeater|gallery|map|listing|calendar|data)[^\\]]*\\]\/i",
                 "severity": "high",
@@ -201,7 +188,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 183,
+                "num": 182,
                 "id": "GAMIPRESS-UNATH",
                 "pattern": "\/\\\/wp-json\\\/gamipress\\\/v\\d+\\\/(?:achievements|points|ranks|logs|notifications|activity|events|triggers|add|remove|grant|revoke)\/i",
                 "severity": "high",
@@ -214,7 +201,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 184,
+                "num": 183,
                 "id": "COMPLIANZ-XSS",
                 "pattern": "\/(?:complianz|cookie|banner|notice|policy|consent|block|allow|decline|dismiss|save|update|reset)\\s*=\\s*[\"']?[^\"']*(?:<script|javascript:|on[a-z]+\\s*=|data:text\\\/html)\/i",
                 "severity": "high",
@@ -227,7 +214,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 185,
+                "num": 184,
                 "id": "XSS-ENHANCED",
                 "pattern": "\/<script[^>]*>.*?<\\\/script>|javascript:[^\"']*+\/is",
                 "severity": "high",
@@ -240,7 +227,7 @@
                 "added_in": "5.22.0"
             },
             {
-                "num": 186,
+                "num": 185,
                 "id": "SQLi-OR-NUMERIC",
                 "pattern": "\/\\d+\\s*['\"]?\\s*OR\\s*['\"]?\\s*\\d+\\s*=\\s*\\d+\/i",
                 "severity": "high",
@@ -249,7 +236,7 @@
                 "added_in": "5.22.0"
             },
             {
-                "num": 187,
+                "num": 186,
                 "id": "SQLi-COMMENT-EXT",
                 "pattern": "\/\\b(?:OR|AND|SELECT|INSERT|UPDATE|DELETE|DROP|UNION)\\b[^&]*?(?:--|#)\/i",
                 "severity": "high",
@@ -258,7 +245,7 @@
                 "added_in": "5.22.0"
             },
             {
-                "num": 188,
+                "num": 187,
                 "id": "ADMIN-PANELS",
                 "pattern": "\/\\\/(?:phpmyadmin|myadmin|adminer|pma|mysql|phpPgAdmin|pgadmin|mongo|redis|webmin|cpanel|whm|plesk)(?:\\\/|$)\/i",
                 "severity": "critical",
@@ -271,7 +258,7 @@
                 "added_in": "5.22.0"
             },
             {
-                "num": 189,
+                "num": 188,
                 "id": "SQLi-COMMENT-NUMERIC",
                 "pattern": "\/\\d+\\s*['\"]\\s*--\/i",
                 "severity": "high",
@@ -280,7 +267,7 @@
                 "added_in": "5.22.29"
             },
             {
-                "num": 190,
+                "num": 189,
                 "id": "MU-PLUGINS-DIRECT-ACCESS",
                 "pattern": "\/\\\/wp-content\\\/mu-plugins\\\/.*\\.php(?:\\?.*)?$\/i",
                 "severity": "critical",
@@ -289,7 +276,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 191,
+                "num": 190,
                 "id": "PHP-EXECUTION-CACHE-LANG",
                 "pattern": "\/\\\/wp-content\\\/(?:cache|upgrade|languages|wflogs)\\\/.*\\.(?:php|phtml|phar|php[5-8])(?:\\?.*)?$\/i",
                 "severity": "critical",
@@ -298,7 +285,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 192,
+                "num": 191,
                 "id": "MAGIC-AUTH-PARAMETERS",
                 "pattern": "\/_wplogin=[^&\\s]+|magic_login=[^&\\s]+|auth_token=[^&\\s]+|secret_key=[^&\\s]+|bypass_auth=[^&\\s]+|admin_token=[^&\\s]+\/i",
                 "severity": "critical",
@@ -307,7 +294,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 193,
+                "num": 192,
                 "id": "BDTHEMES-WEBSHELL",
                 "pattern": "\/emer-run\\.php\/i",
                 "severity": "critical",
@@ -316,7 +303,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 194,
+                "num": 193,
                 "id": "BDTHEMES-MUPLUGINS",
                 "pattern": "\/\\\/wp-content\\\/mu-plugins\\\/(?:class-wp-token-validate\\.php|wp-cache-optimizer\\.php|class-wp-query-[a-z0-9\\-]+\\.php)\/i",
                 "severity": "critical",
@@ -325,7 +312,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 195,
+                "num": 194,
                 "id": "BDTHEMES-FAKE-PLUGIN",
                 "pattern": "\/\\\/wp-content\\\/plugins\\\/wp-smart-thumbnails\\\/\/i",
                 "severity": "critical",
@@ -334,7 +321,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 196,
+                "num": 195,
                 "id": "ROGUE-USER-CREATION",
                 "pattern": "\/[\"']?(?:user_login|username|log)[\"']?\\s*[:=]\\s*[\"']?bd_[a-z0-9]{6}[\"']?|[\"']?(?:user_email|email)[\"']?\\s*[:=]\\s*[\"']?[^\"']*@(?:developer\\.)?wordpress\\.org[\"']?\/i",
                 "severity": "critical",
@@ -343,7 +330,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 197,
+                "num": 196,
                 "id": "PLUGIN-UPLOAD-NO-REFERER",
                 "pattern": "\/action=(?:upload-plugin|install-plugin)\/i",
                 "severity": "critical",
@@ -356,7 +343,7 @@
                 "added_in": "5.22.42"
             },
             {
-                "num": 198,
+                "num": 197,
                 "id": "UPB-AUTH-BYPASS",
                 "pattern": "\/(?:username|user_login|log)[\"\\s:=]+[\"']?[a-zA-Z0-9_\\-\\.@]{61,70}[\"']?\/i",
                 "severity": "critical",
@@ -370,7 +357,7 @@
                 "cve": "CVE-2026-15826"
             },
             {
-                "num": 199,
+                "num": 198,
                 "id": "CVE-2026-15988-AI-ENGINE-CSRF",
                 "pattern": "\/\\\/wp-json\\\/wp\\\/v2\\\/users.*[?&]_method\\s*=\\s*POST.*(?:username|user_login|password|email|roles?|user_email)\/i",
                 "severity": "critical",
@@ -392,7 +379,7 @@
                 "cve": "CVE-2026-15988"
             },
             {
-                "num": 200,
+                "num": 199,
                 "id": "CVE-2026-15748-FORMINATOR-FILE-UPLOAD",
                 "pattern": "\/(?:ph\\(p\\)\\|text\\\/x-php|forminator[^&]*(?:\\.php|\\.phtml|\\.phar|\\.php[5-8])[\"']?\\s*[,}\\]])\/i",
                 "severity": "critical",
@@ -414,7 +401,7 @@
                 "cve": "CVE-2026-15748"
             },
             {
-                "num": 202,
+                "num": 200,
                 "id": "LITESPEED-PRIVESC",
                 "pattern": "\/litespeed_role=[^&]*&litespeed_hash=[^&]+\/i",
                 "severity": "critical",
@@ -427,7 +414,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 203,
+                "num": 201,
                 "id": "WC-PAYMENTS-AUTH-BYPASS",
                 "pattern": "\/X-Wcpay-Platform-Checkout-User:\\s*(?!0\\s*$)\\d+\/i",
                 "severity": "critical",
@@ -436,7 +423,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 204,
+                "num": 202,
                 "id": "LOSTPASSWORD-USER-PASS",
                 "pattern": "\/action=(?:lostpassword|rp|resetpass).*user_pass=[^&]+\/i",
                 "severity": "critical",
@@ -445,7 +432,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 205,
+                "num": 203,
                 "id": "PROTO-POLLUTION",
                 "pattern": "\/(?:^|[?&])(?:__proto__|constructor|prototype)(?:\\[|%5[bB]|=)\/i",
                 "severity": "high",
@@ -454,7 +441,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 206,
+                "num": 204,
                 "id": "WP-AUTOLOAD-BACKDOOR",
                 "pattern": "\/wp-autoload\\.php.*(?:pass|bypass)=\/i",
                 "severity": "critical",
@@ -463,7 +450,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 207,
+                "num": 205,
                 "id": "BACKUP-HEART-DIRECT",
                 "pattern": "\/\\\/includes\\\/backup-heart\\.php\/i",
                 "severity": "critical",
@@ -472,7 +459,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 208,
+                "num": 206,
                 "id": "LAKIT-BKROLE-BACKDOOR",
                 "pattern": "\/action=(?:nopriv_)?lakit_ajax.*register.*lakit_bkrole=\/i",
                 "severity": "critical",
@@ -481,7 +468,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 209,
+                "num": 207,
                 "id": "REST-BATCH-UNATH",
                 "pattern": "\/\\\/wp-json\\\/batch\\\/v1\\\/\/i",
                 "severity": "critical",
@@ -494,7 +481,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 210,
+                "num": 208,
                 "id": "KEYDATAS-BACKDOOR",
                 "pattern": "\/__kds_flag=post.*kds_password=keydatas\\.com\/i",
                 "severity": "critical",
@@ -503,7 +490,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 211,
+                "num": 209,
                 "id": "MWPNS-PRIVESC",
                 "pattern": "\/option=mo_wpns_change_password\/i",
                 "severity": "critical",
@@ -512,7 +499,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 212,
+                "num": 210,
                 "id": "JUPITERX-SOCIAL-BYPASS",
                 "pattern": "\/(?:jupiterx-facebook-social-login|jupiterx-google-social-login)=[^&]\/i",
                 "severity": "critical",
@@ -521,7 +508,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 213,
+                "num": 211,
                 "id": "SURETRIGGERS-CONN-PRIVESC",
                 "pattern": "\/wp-json\\\/sure-triggers\\\/v1\\\/connection\\\/create-wp-connection\/i",
                 "severity": "critical",
@@ -534,7 +521,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 214,
+                "num": 212,
                 "id": "POSTSMTP-CONNECT-APP",
                 "pattern": "\/wp-json\\\/post-smtp\\\/v1\\\/connect-app\/i",
                 "severity": "critical",
@@ -547,7 +534,7 @@
                 "added_in": "6.1.4"
             },
             {
-                "num": 216,
+                "num": 213,
                 "id": "COMMONS-TEXT-RCE",
                 "pattern": "\/\\$\\{(script|dns|url):\/i",
                 "severity": "critical",
@@ -560,7 +547,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 217,
+                "num": 214,
                 "id": "F5-BIGIP-RCE",
                 "pattern": "#\/tmui\/login\\.jsp\/\\.\\.;\/#",
                 "severity": "critical",
@@ -569,7 +556,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 218,
+                "num": 215,
                 "id": "VCENTER-RCE",
                 "pattern": "#\/ui\/vropspluginui\/rest\/services\/#",
                 "severity": "critical",
@@ -578,7 +565,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 219,
+                "num": 216,
                 "id": "VSPHERE-RCE",
                 "pattern": "#\/ui\/h5-vsan\/rest\/proxy\/service\/&vsanProviderUtils_setVmodlHelper\/#",
                 "severity": "critical",
@@ -587,7 +574,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 220,
+                "num": 217,
                 "id": "SHAREPOINT-RCE",
                 "pattern": "#_layouts\/\\d+\/Picker\\.aspx#",
                 "severity": "critical",
@@ -596,7 +583,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 221,
+                "num": 218,
                 "id": "APACHE-CGI-TRAVERSAL",
                 "pattern": "#\/cgi-bin\/;.*#",
                 "severity": "critical",
@@ -605,7 +592,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 222,
+                "num": 219,
                 "id": "F5-AUTH-BYPASS",
                 "pattern": "#^\/mgmt\/tm\/#i",
                 "severity": "critical",
@@ -626,7 +613,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 223,
+                "num": 220,
                 "id": "GRAFANA-TRAVERSAL",
                 "pattern": "#^(\/\\w+)?\/public\/plugins\/\\w+\/\\.\\.\/#",
                 "severity": "critical",
@@ -635,7 +622,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 224,
+                "num": 221,
                 "id": "FORTIOS-AUTH-BYPASS",
                 "pattern": "#^\/api\/v2\/(cmdb|monitor)\/#",
                 "severity": "critical",
@@ -648,7 +635,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 225,
+                "num": 222,
                 "id": "EXCHANGE-PROXYSHELL",
                 "pattern": "#\/autodiscover\/autodiscover\\.json#",
                 "severity": "critical",
@@ -669,7 +656,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 226,
+                "num": 223,
                 "id": "HTTPSYS-RCE",
                 "pattern": "\/doar-e, ?ftw, ?imo, ?,\/",
                 "severity": "critical",
@@ -678,7 +665,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 227,
+                "num": 224,
                 "id": "SPRING4SHELL",
                 "pattern": "\/class\\.module\\.classLoader|class\\.classLoader\\.resources|getClass\\(\\)\\.getClassLoader\\(\\)\/i",
                 "severity": "critical",
@@ -691,7 +678,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 228,
+                "num": 225,
                 "id": "CONFLUENCE-AUTH-BYPASS",
                 "pattern": "#\/server-info\\.action|\/setup\/setupadministrator\\.action|\/setup\/setupstart\\.action\/i",
                 "severity": "critical",
@@ -704,7 +691,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 229,
+                "num": 226,
                 "id": "MOVEIT-SQLI",
                 "pattern": "#\/moveitisapi\/moveitisapi\\.dll|\/human2\\.aspx|\/guestaccess\\.aspx\/i",
                 "severity": "critical",
@@ -717,7 +704,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 230,
+                "num": 227,
                 "id": "PALOALTO-RCE",
                 "pattern": "#\/global-protect\/login\\.esp|\/ssl-vpn\/hipreport\\.esp\/i",
                 "severity": "critical",
@@ -730,7 +717,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 231,
+                "num": 228,
                 "id": "IVANTI-RCE",
                 "pattern": "#\/api\/v1\/totp\/user-backup-code|\/dana-na\/auth|\/dana\/nc\/ncrun.cgi\/i",
                 "severity": "critical",
@@ -743,7 +730,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 232,
+                "num": 229,
                 "id": "SCANNER-UA",
                 "pattern": "\/(?:cyberscan\\.io|UT-Dorkbot|Nuclei - Open-source|OpenVAS|WhiteHat Security|Punkspider|Greenbone OS|WPScan|Qualys|Detectify|virusdie-sdsnetwork|Burp Suite|OWASP ZAP|Nikto|DirBuster|Gobuster|ffuf|wfuzz|sqlmap|Acunetix|Netsparker|AppScan|Arachni|w3af|Havij|Pangolin)\/i",
                 "severity": "medium",
@@ -752,7 +739,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 233,
+                "num": 230,
                 "id": "UA-FAKE-MSIE",
                 "pattern": "\/^Mozilla\\\/4\\.0 \\(compatible; MSIE 6\\.0; Windows NT 5\\.0\\)$\/",
                 "severity": "medium",
@@ -761,7 +748,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 234,
+                "num": 231,
                 "id": "UA-MALICIOUS-BOTS",
                 "pattern": "\/^(?:anonymousfox|colonel|wp_is_mobile|ALittle Client|ALittleClient)$\/i",
                 "severity": "medium",
@@ -770,7 +757,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 235,
+                "num": 232,
                 "id": "PHAR-DESERIALIZE",
                 "pattern": "\/phar:\\\/\\\/\/i",
                 "severity": "critical",
@@ -783,7 +770,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 236,
+                "num": 233,
                 "id": "OBJ-INJECT-GENERIC",
                 "pattern": "\/(^|;|\\{|})(?:O|C):\\d+:\"(?!stdClass\")[^\"]+:\/",
                 "severity": "high",
@@ -796,7 +783,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 237,
+                "num": 234,
                 "id": "WP-POP-CHAIN",
                 "pattern": "\/(^|;|\\{|})(?:O|C):\\d+:\"WP_HTML_Token\/i",
                 "severity": "critical",
@@ -805,7 +792,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 238,
+                "num": 235,
                 "id": "WP-FILTEREDITER",
                 "pattern": "\/(^|;|\\{|})C:+?\\+*[0-9]+:\"\\\\?Requests_Utility_FilteredIterator\"\/i",
                 "severity": "critical",
@@ -814,7 +801,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 239,
+                "num": 236,
                 "id": "OBJ-INJECT-COOKIES",
                 "pattern": "\/(^|;|\\{|})(?:O|C):\\d+:\"(?!stdClass\")[^\"]+:\/",
                 "severity": "high",
@@ -823,7 +810,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 240,
+                "num": 237,
                 "id": "UA-XSS",
                 "pattern": "\/(?:<\\s*script|javascript:|on(?:click|load|error|focus|mouseover)\\s*=)\/i",
                 "severity": "high",
@@ -832,7 +819,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 241,
+                "num": 238,
                 "id": "REFERER-XSS",
                 "pattern": "\/(?:<\\s*script|javascript:|on(?:click|load|error)\\s*=)\/i",
                 "severity": "high",
@@ -841,7 +828,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 242,
+                "num": 239,
                 "id": "UA-SQLI",
                 "pattern": "\/(?:\\bUNION\\b[\\s\\S]{0,200}?\\bSELECT\\b|\\bSELECT\\b[\\s\\S]{0,200}?\\bFROM\\b|\\bDROP\\s+TABLE\\b|\\bINSERT\\s+INTO\\b)\/i",
                 "severity": "high",
@@ -850,7 +837,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 243,
+                "num": 240,
                 "id": "HEADER-IP-XSS",
                 "pattern": "\/(?:<\\s*script|javascript:|on\\w+\\s*=)\/i",
                 "severity": "high",
@@ -888,7 +875,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 244,
+                "num": 241,
                 "id": "WPCONFIG-DIRECT",
                 "pattern": "#\/wp-config\\.php(?:\\?.*)?$#i",
                 "severity": "critical",
@@ -901,7 +888,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 245,
+                "num": 242,
                 "id": "WPCONFIG-BACKUP",
                 "pattern": "#\/wp-config\\.(?:bak|old|swp|save|~|php\\.bak|php\\.old|php\\.save)(?:\\?.*)?$#i",
                 "severity": "critical",
@@ -914,7 +901,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 246,
+                "num": 243,
                 "id": "INSTALL-PROBE",
                 "pattern": "#\/(?:^|\\\/)install\\.php$#i",
                 "severity": "high",
@@ -927,7 +914,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 247,
+                "num": 244,
                 "id": "DEBUG-LOG",
                 "pattern": "#\/(?:debug|error)[-_]?log(?:\\.txt|\\.log)?$#i",
                 "severity": "medium",
@@ -940,7 +927,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 248,
+                "num": 245,
                 "id": "README-PROBE",
                 "pattern": "#\/(?:readme\\.(?:txt|html)|license\\.txt|changelog\\.txt|wp-config-sample\\.php)(?:\\?.*)?$#i",
                 "severity": "low",
@@ -953,7 +940,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 249,
+                "num": 246,
                 "id": "UPLOADS-PHP",
                 "pattern": "#\/wp-content\/uploads\/.*\\.(?:php|phtml|phar|php[5-8])(?:\\?.*)?$#i",
                 "severity": "critical",
@@ -962,7 +949,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 250,
+                "num": 247,
                 "id": "REST-USERS-ENUM",
                 "pattern": "#\/wp-json\/wp\/v2\/users\/?(?:\\?.*)?$#i",
                 "severity": "medium",
@@ -975,20 +962,22 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 251,
+                "num": 248,
                 "id": "UPLOAD-MALICIOUS",
-                "pattern": "\/\\.(p(h(pt?|t(ml?)?|ar)[0-9]?|l|y)|(j|a)sp|aspx|sh|shtml|html?|cgi|htaccess|user\\.ini)($|\\.)\/i",
+                "pattern": "\/\\.(p(h(pt?|t(ml?)?|ar)[0-9]?|l|y)|(j|a)sp|aspx|sh|shtml|cgi|htaccess|user\\.ini)($|\\.)\/i",
                 "severity": "critical",
-                "description": "Subida de archivo ejecutable peligroso",
+                "description": "Subida de archivo ejecutable peligroso (excluye html\/htm para evitar FPs en contenido técnico)",
                 "target": "files_content|post",
                 "condition": [
                     "YGB_Escudo_2_WAF_Callbacks",
                     "check_user_not_admin"
                 ],
-                "added_in": "6.1.5"
+                "added_in": "6.1.5",
+                "fixed_in": "6.6.19",
+                "fix_ref": "CAL-02"
             },
             {
-                "num": 252,
+                "num": 249,
                 "id": "XXE-GENERIC",
                 "pattern": "\/<\\!(?:DOCTYPE|ENTITY)\\s+(?:%\\s*)?\\w+\\s+SYSTEM\/i",
                 "severity": "critical",
@@ -1001,20 +990,22 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 253,
-                "id": "HEADER-TRAVERSAL",
+                "num": 250,
+                "id": "HEADER-TRAVERSAL-V2",
                 "pattern": "\/(^|\\\/|\\\\\\)\\.\\.(\\\\|\\\/)\/",
                 "severity": "high",
-                "description": "Path traversal en cabeceras HTTP",
+                "description": "Path traversal en cabeceras HTTP (variante V2, convive con la regla HEADER-TRAVERSAL del base)",
                 "target": "headers",
                 "condition": [
                     "YGB_Escudo_2_WAF_Callbacks",
                     "check_user_not_admin"
                 ],
-                "added_in": "6.1.5"
+                "added_in": "6.1.5",
+                "fixed_in": "6.6.18",
+                "fix_ref": "J-02"
             },
             {
-                "num": 255,
+                "num": 251,
                 "id": "AUTHOR-NOTIN-SQLI",
                 "pattern": "\/author__not_in=[^&]*(?:['\"]|\\b(?:OR|AND)\\b|\\bUNION\\b|--|;)\/i",
                 "severity": "high",
@@ -1027,16 +1018,16 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 256,
+                "num": 252,
                 "id": "OEMBED-SSRF",
-                "pattern": "#\/wp-json\/oembed\/1\\.0\/proxy\\?.*?url\\s*=\\s*(?:https?:)?\\\/\\\/(?:127\\.0\\.0\\.1|localhost|10\\.|172\\.(?:1[6-9]|2\\d|3[01])\\.|192\\.168\\.|169\\.254\\.|\\[::)\/i",
+                "pattern": "#\/wp-json\/oembed\/1\\.0\/proxy\\?.*?url\\s*=\\s*(?:https?:)?\\\/\\\/(?:127\\.0\\.0\\.1|localhost|10\\.|172\\.(?:1[6-9]|2\\d|3[01])\\.|192\\.168\\.|169\\.254\\.|\\[::)#i",
                 "severity": "critical",
                 "description": "SSRF vía endpoint oEmbed proxy",
                 "target": "uri|query",
                 "added_in": "6.1.5"
             },
             {
-                "num": 257,
+                "num": 253,
                 "id": "REST-PERPAGE-DOS",
                 "pattern": "\/per_page=(?:5[1-9]|[6-9]\\d|\\d{3,})\\b\/",
                 "severity": "medium",
@@ -1049,7 +1040,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 258,
+                "num": 254,
                 "id": "GUTENBERG-BLOCK-XSS",
                 "pattern": "\/<!--\\s+wp:(?:[a-z][a-z0-9_-]*\\\/)?(?:[a-z][a-z0-9_-]*)\\s+\\{[^}]*(?:\\b|\\d)+(?:on(?:abort|activate|click|dblclick|error|focus|keydown|keypress|keyup|load|mousedown|mousemove|mouseout|mouseover|mouseup|submit)|formaction|data\\-bind|ev:event)[^}]*[\\s+}]+\\s+\\\/?-->\/ix",
                 "severity": "high",
@@ -1062,7 +1053,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 259,
+                "num": 255,
                 "id": "GUTENBERG-JS-URL",
                 "pattern": "\/<!--\\s+wp:(?:[a-z][a-z0-9_-]*\\\/)?(?:[a-z][a-z0-9_-]*)\\s+\\{[^}]*(?:\\b|\\d)+javascript:[^}]*[\\s+}]+\\s+\\\/?-->\/ix",
                 "severity": "high",
@@ -1075,20 +1066,21 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 260,
+                "num": 256,
                 "id": "PRIVESC-META",
                 "pattern": "\/^administrator|editor|shop_manager|manage_options|promote_users|unfiltered_html|install_plugins|install_themes$\/i",
                 "severity": "high",
                 "description": "Escalada de privilegios vía user meta",
                 "target": "post",
-                "condition": [
-                    "YGB_Escudo_2_WAF_Callbacks",
-                    "check_user_cannot_manage_options"
-                ],
-                "added_in": "6.1.5"
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.1.5",
+                "fixed_in": "6.6.18",
+                "fix_ref": "J-01"
             },
             {
-                "num": 261,
+                "num": 257,
                 "id": "WP-GDPR-EXPLOIT",
                 "pattern": "\/^(?:nopriv_)?wpgdprc_process_action$\/i",
                 "severity": "critical",
@@ -1110,7 +1102,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 262,
+                "num": 258,
                 "id": "KIWI-SOCIAL-EXPLOIT",
                 "pattern": "\/^(?:nopriv_)?kiwi_social_share_set_option$\/i",
                 "severity": "critical",
@@ -1132,7 +1124,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 263,
+                "num": 259,
                 "id": "CONVERTPLUS-ADMIN",
                 "pattern": "\/cp_add_subscriber\/i",
                 "severity": "critical",
@@ -1158,7 +1150,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 264,
+                "num": 260,
                 "id": "USERPRO-AUTH-BYPASS",
                 "pattern": "\/up_auto_log=true\/i",
                 "severity": "critical",
@@ -1171,7 +1163,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 265,
+                "num": 261,
                 "id": "REVSLIDER-TRAVERSAL",
                 "pattern": "\/revslider_show_image|nopriv_revslider_show_image\/i",
                 "severity": "critical",
@@ -1193,7 +1185,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 266,
+                "num": 262,
                 "id": "SHOWBIZ-UPLOAD",
                 "pattern": "\/showbiz_ajax_action\/i",
                 "severity": "critical",
@@ -1220,7 +1212,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 267,
+                "num": 263,
                 "id": "ELEMENTOR-UPLOAD",
                 "pattern": "\/elementor_ajax\/i",
                 "severity": "critical",
@@ -1246,7 +1238,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 268,
+                "num": 264,
                 "id": "FILEMANAGER-CONNECTOR",
                 "pattern": "#\/php\/connector\\.minimal\\.php$#i",
                 "severity": "critical",
@@ -1259,7 +1251,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 269,
+                "num": 265,
                 "id": "WFU-TRAVERSAL",
                 "pattern": "\/wfu_ajax_action_ask_server\/i",
                 "severity": "critical",
@@ -1281,7 +1273,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 271,
+                "num": 266,
                 "id": "REGISTER-ABUSE",
                 "pattern": "\/(?:register|signup|add_user|create_user)\/i",
                 "severity": "medium",
@@ -1294,7 +1286,7 @@
                 "added_in": "6.1.5"
             },
             {
-                "num": 272,
+                "num": 267,
                 "id": "UNAUTH-PUT-DELETE",
                 "pattern": "\/.+\/s",
                 "severity": "high",
@@ -1305,8 +1297,566 @@
                     "check_unauth_put_delete"
                 ],
                 "added_in": "6.1.5"
+            },
+            {
+                "num": 269,
+                "id": "DUPLICATOR-RCE",
+                "pattern": "\/installer(?:-backup)?\\.php\/i",
+                "severity": "critical",
+                "description": "Duplicator <= 1.2.41 - Sensitive Information Disclosure a RCE",
+                "target": "uri|post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_equals",
+                            "param": "action_ajax",
+                            "value": "3"
+                        },
+                        {
+                            "type": "user_not_admin"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 270,
+                "id": "WP-DATA-ACCESS-PRIVESC",
+                "pattern": "#\/wp-admin\/(?:profile|user-edit)\\.php$#i",
+                "severity": "critical",
+                "description": "WP Data Access <= 5.3.7 - Privilege Escalation (Subscriber+)",
+                "target": "uri",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_exists",
+                            "param": "wpda_role"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 271,
+                "id": "WP-GATEWAY-PRIVESC",
+                "pattern": "#wpgateway\/wpgateway-webservice-new\\.php|wpgateway-webservice\\.php#i",
+                "severity": "critical",
+                "description": "WPGateway <= 3.5 - Unauthenticated Privilege Escalation",
+                "target": "uri",
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 272,
+                "id": "USER-ROLE-EDITOR-PRIVESC",
+                "pattern": "#\/wp-admin\/(network\/)?(?:profile|user-new)\\.php#i",
+                "severity": "critical",
+                "description": "User Role Editor <= 4.24 - Authenticated Privilege Escalation",
+                "target": "uri",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_exists",
+                            "param": "ure_other_roles"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 273,
+                "id": "REVIEWX-META-PRIVESC",
+                "pattern": "\/wp_screen_options\\[option\\]\\s*=\\s*(?:wp_capabilities|wp_user_level)\/i",
+                "severity": "critical",
+                "description": "ReviewX <= 1.6.13 - Arbitrary Usermeta Update a Privilege Escalation",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 274,
+                "id": "ABANDONED-CART-AUTH-BYPASS",
+                "pattern": "\/wcal_action\\s*=\\s*(?:checkout_link|track_links)\/i",
+                "severity": "critical",
+                "description": "Abandoned Cart Lite for WooCommerce <= 5.14.2 - Authentication Bypass",
+                "target": "query",
+                "condition": {
+                    "type": "param_exists",
+                    "param": "validate"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 275,
+                "id": "AAM-AUTH-BYPASS",
+                "pattern": "\/.+\/s",
+                "severity": "critical",
+                "description": "Advanced Access Manager <= 6.6.1 - Authenticated Authorization Bypass",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_exists",
+                            "param": "aam_user_roles"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 276,
+                "id": "JETELEMENTS-RCE",
+                "pattern": "#meta_callback\":\"(?!(?:get_permalink|get_the_title|wp_get_attachment_url|wp_get_attachment_image|date|date_i18n|\"))#i",
+                "severity": "critical",
+                "description": "JetElements <= 2.6.10 - Authenticated (Contributor+) Remote Code Execution",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_equals",
+                            "param": "action",
+                            "value": "elementor_ajax"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 277,
+                "id": "WP-EXTRA-HTACCESS",
+                "pattern": "\/wp_extra\\[(?:save_includes|save_content|save_root)\\]\/i",
+                "severity": "critical",
+                "description": "WP EXtra <= 6.2 - Missing Authorization a modificacion de .htaccess",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 278,
+                "id": "MY-TICKETS-PRIVESC",
+                "pattern": "\/mt_capabilities\/i",
+                "severity": "critical",
+                "description": "My Tickets <= 2.0.16 - Privilege Escalation (Subscriber+)",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "uri_matches",
+                            "pattern": "#\/wp-admin\/(?:profile|user-edit)\\.php$#i"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 279,
+                "id": "SUPPORT-CANDY-XSS",
+                "pattern": "\/\\[supportcandy\/i",
+                "severity": "high",
+                "description": "SupportCandy <= 2.2.6 - Reflected Cross-Site Scripting",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "plugin_version_less_than",
+                            "plugin": "supportcandy",
+                            "version": "2.2.7"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 280,
+                "id": "ORBIT-FOX-XSS",
+                "pattern": "\/obfx-(?:footer|header)-scripts\/i",
+                "severity": "high",
+                "description": "Orbit Fox by ThemeIsle <= 2.10.2 - Authenticated (Contributor+) Stored XSS",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 281,
+                "id": "ELEMENTOR-CFDB-SDE",
+                "pattern": "\/.+\/s",
+                "severity": "high",
+                "description": "Elementor Contact Form DB <= 1.5 - Sensitive Information Disclosure",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_exists",
+                            "param": "download_csv"
+                        },
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "type": "param_exists",
+                                    "param": "form_name"
+                                },
+                                {
+                                    "type": "param_exists",
+                                    "param": "form_id"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 282,
+                "id": "WP-PAGE-BUILDER-AUTH",
+                "pattern": "\/(?:^|&)action=(?:wppb_page_save|wppb_editor)(?:&|$)\/i",
+                "severity": "high",
+                "description": "WP Page Builder <= 1.2.3 - Insecure Default a edicion no autorizada",
+                "target": "post|query",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 283,
+                "id": "MAPPLIC-SSRF-XSS",
+                "pattern": "\/(?:mapplic-mapdata|new-map)[^&]*(?:\\.svg|%2esvg)\/i",
+                "severity": "high",
+                "description": "Mapplic - Server Side Request Forgery a Cross-Site Scripting",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 284,
+                "id": "PHP-EVERYWHERE-RCE",
+                "pattern": "\/(?:\\[php_everywhere|wp:php-everywhere-block\\\/php)\/i",
+                "severity": "critical",
+                "description": "PHP Everywhere <= 2.0.3 - Authenticated (Contributor+) RCE via Metabox",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 285,
+                "id": "POPUP-BUILDER-LFI",
+                "pattern": "\/(?:^|&)sgpb_type=[^&]*[^a-zA-Z]\/",
+                "severity": "critical",
+                "description": "Popup Builder <= 4.0.6 - Local File Inclusion a Remote Code Execution",
+                "target": "query",
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 286,
+                "id": "10WEB-BOOSTER-AUTH",
+                "pattern": "\/(?:two_import_settings|two_export|nopriv_two_import_settings)\/i",
+                "severity": "high",
+                "description": "10Web Booster <= 2.13.44 - Missing Authorization a Stored XSS",
+                "target": "post|query",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 287,
+                "id": "YOAST-SEO-XSS",
+                "pattern": "\/yoast_wpseo_title[^&]*(?:<script|javascript:|on\\w+\\s*=|data:text\\\/html)\/i",
+                "severity": "high",
+                "description": "Yoast SEO <= 20.2 - Authenticated (Contributor+) Cross-Site Scripting",
+                "target": "post",
+                "condition": [
+                    "YGB_Escudo_2_WAF_Callbacks",
+                    "check_xss_allowed"
+                ],
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 288,
+                "id": "SLIMSTAT-SQLI-SHORTCODE",
+                "pattern": "\/\\[slimstat\/i",
+                "severity": "high",
+                "description": "Slimstat Analytics <= 4.9.3.3 - SQL Injection via Shortcode",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "plugin_version_less_than",
+                            "plugin": "wp-slimstat",
+                            "version": "4.9.3.3"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 289,
+                "id": "WOODMART-PRIVESC",
+                "pattern": "\/(?:^|&)opauth=[^&]+\/i",
+                "severity": "critical",
+                "description": "Woodmart Core <= 1.0.36 - Authentication Bypass a Privilege Escalation",
+                "target": "query",
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 290,
+                "id": "FRONT-END-USERS-AUTH",
+                "pattern": "\/(?:^|&)(?:Action|action)=EWD_FEUP_(?:MassUserAction|DeleteAllUsers|DeleteUser|MassDeleteFields|AddPayment|EditPayment|DeletePayment|DeleteLevel|MassDeleteLevels|ExportToExcel)\/",
+                "severity": "critical",
+                "description": "Front End Users <= 3.2.24 - Missing Authorization en multiples funciones",
+                "target": "query",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 291,
+                "id": "TI-WISHLIST-OPTIONS",
+                "pattern": "\/tinvwl_import_settings\/i",
+                "severity": "critical",
+                "description": "TI WooCommerce Wishlist <= 1.21.11 - Arbitrary Options Update",
+                "target": "uri|query|post",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 292,
+                "id": "HC-CUSTOM-ADMIN-URL",
+                "pattern": "\/custom_wpadmin_slug\/i",
+                "severity": "high",
+                "description": "HC Custom WP-Admin URL <= 1.4 - Missing Authorization al cambio de URL de login",
+                "target": "post",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 293,
+                "id": "CHANGE-WPADMIN-LOGIN",
+                "pattern": "\/rwl_(?:redirect_field|page)\/i",
+                "severity": "high",
+                "description": "Change wp-admin login <= 1.0.9 - Missing Authorization Checks",
+                "target": "post",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 294,
+                "id": "AIO-VIDEO-GALLERY-SSRF",
+                "pattern": "\/(?:^|&)dl=[^&\\d]\/",
+                "severity": "high",
+                "description": "All-in-One Video Gallery <= 2.6.0 - Arbitrary File Download y SSRF",
+                "target": "query",
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 295,
+                "id": "BETHEME-AUTH",
+                "pattern": "\/mfn-live-builder\/i",
+                "severity": "high",
+                "description": "Betheme <= 26.6.2 - Missing Authorization Checks",
+                "target": "post|query",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 296,
+                "id": "CONTENTSTUDIO-AUTH",
+                "pattern": "\/(?:cstu_set_token|cstu_check_token|cstu_verfiy_wp_user|cstu_get_blog_authors|cstu_create_new_post|cstu_update_post|cstu_unset_token|cstu_change_post_status|cstu_get_metadata|cstu_is_installed|cstu_create_nonce_for_post)\/",
+                "severity": "high",
+                "description": "ContentStudio <= 1.1.8\/1.2.5 - Missing Authorization",
+                "target": "post|query",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 297,
+                "id": "DIRECTORIST-PRIVESC",
+                "pattern": "\/directorist_reset_password\/i",
+                "severity": "critical",
+                "description": "Directorist <= 7.5.4 - Arbitrary User Password Reset a Privilege Escalation",
+                "target": "post",
+                "condition": {
+                    "type": "user_not_admin"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 298,
+                "id": "CHARITABLE-PRIVESC",
+                "pattern": "\/charitable_action\\s*=\\s*(?:update_profile|save_registration)\/i",
+                "severity": "critical",
+                "description": "Charitable <= 1.7.0.12 - Unauthenticated Privilege Escalation",
+                "target": "post|query",
+                "condition": {
+                    "type": "param_exists",
+                    "param": "role"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 299,
+                "id": "SIMPLE-MEMBERSHIP-ATO",
+                "pattern": "\/swpm-password-reset-using-link\/i",
+                "severity": "critical",
+                "description": "Simple Membership <= 4.3.4 - Account Takeover via Password Reset",
+                "target": "post",
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 300,
+                "id": "ASTRA-PRO-RCE",
+                "pattern": "\/ast-advanced-hook-(?:with-php|php-code)\/i",
+                "severity": "critical",
+                "description": "Astra Pro <= 4.3.1 - Authenticated (Contributor+) Remote Code Execution via Metabox",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 301,
+                "id": "WPBAKERY-XSS-FE",
+                "pattern": "\/(?:vc_raw_(?:html|js)|custom_onclick_code)\/i",
+                "severity": "high",
+                "description": "WPBakery Page Builder <= 6.2.0 - Contributor+ Stored XSS (FE Save Post\/Template)",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "operator": "OR",
+                            "conditions": [
+                                {
+                                    "type": "param_equals",
+                                    "param": "action",
+                                    "value": "vc_save"
+                                },
+                                {
+                                    "type": "param_equals",
+                                    "param": "action",
+                                    "value": "vc_save_template"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 302,
+                "id": "S2MEMBER-INFO-DISC",
+                "pattern": "\/\\[s2Get\/i",
+                "severity": "high",
+                "description": "s2Member <= 240325 - Sensitive Information Disclosure via Shortcode",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "plugin_version_less_than",
+                            "plugin": "s2member",
+                            "version": "240325"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 307,
+                "id": "WPML-SHORTCODE-RCE",
+                "pattern": "\/\\[wpml_language_(?:switcher|selector_widget|selector_footer)\/i",
+                "severity": "high",
+                "description": "WPML <= 4.6.11 - Authenticated RCE via shortcode (verificar version minima en staging)",
+                "target": "post",
+                "condition": {
+                    "type": "user_cannot_manage_options"
+                },
+                "added_in": "6.7.0"
+            },
+            {
+                "num": 308,
+                "id": "ELEMENTOR-PRO-UPLOAD",
+                "pattern": "\/(?:^|&)zip_upload(?:=|\\[|$)\/i",
+                "severity": "critical",
+                "description": "Elementor Pro <= 2.9.3 - Authenticated (Subscriber+) Arbitrary File Upload",
+                "target": "post",
+                "condition": {
+                    "operator": "AND",
+                    "conditions": [
+                        {
+                            "type": "param_equals",
+                            "param": "action",
+                            "value": "elementor_ajax"
+                        },
+                        {
+                            "type": "user_cannot_manage_options"
+                        }
+                    ]
+                },
+                "added_in": "6.7.0"
             }
         ]
     },
-    "signature": "jgJD7ov4M0hzS2eGhprbofCwW6OU\/jGTczjKhzHLYR3DSQI31VohdqNaHCSj2NVFftPsDS8BmvpzK7kaZqupDg=="
+    "signature": "0KH7Q2QNIPASBUcBA8lvpIt8yqYxuJN0RZFjwxnouaYXljZa+PnwOOYHVwj+TOWOVf7+0tAWQ07ps1xk8dKrDQ=="
 }
