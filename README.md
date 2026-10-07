@@ -6,29 +6,10 @@ Plugin: https://wordpress.org/plugins/ygb-escudo-2/
 ## Cómo usar
 
 1. Descarga rules.json de la última release:
-   https://github.com/yosdeny/ygb-waf-rules/releases/latest
+   https://github.com/yosdeny/ygb-waf-rules/
 2. En WordPress: YGB Escudo 2 → Reglas WAF → Actualizaciones
-3. Sube el archivo rules.json
+3. Sube el archivo rules.json y rules.json_.sig
 4. Listo
-
-## Releases
-
-- v6.2.2 (2026-08-21): Nueva encriptacion
-- v6.1.3 (2026-08-18): 34 reglas extendidas - Añade CVE-2026-15748 (Forminator) (AI Engine CSRF)
-- v6.0.1 (2026-08-17): 33 reglas extendidas - Añade CVE-2026-15988 (AI Engine CSRF)
-- v6.0.0 (2026-08-17): 32 reglas extendidas - Lanzamiento inicial
-
-## Estructura
-
-ygb-waf-rules/
-  rules.json          Archivo principal con reglas extendidas
-  README.md           Este archivo
-  scripts/
-    build.php         Script opcional para construir rules.json
-
-## Soporte
-
-- Issues: https://github.com/yosdeny/ygb-waf-rules/issues
 
 ## Licencia
 
