@@ -1,6 +1,6 @@
 {
-  "version": "6.7.1",
-  "updated_at": "2026-10-12T00:00:00Z",
+  "version": "6.7.2",
+  "updated_at": "2026-10-12T00:20:00Z",
   "rule_count": 139,
   "rules": [
     {"num":167,"id":"XSS-EVENT-HANDLER-ENHANCED","pattern":"/(?:on(?:load|error|focus|blur|click|dblclick|mousedown|mouseup|mouseover|mouseout|mousemove|keydown|keyup|keypress|submit|reset|change|select|input|cut|copy|paste|drag|drop|dragstart|dragend|dragenter|dragover|dragleave|touchstart|touchend|touchmove|touchcancel|gesturestart|gesturechange|gestureend|animationstart|animationend|animationiteration|transitionend|scroll|wheel|contextmenu|show|hide|toggle|open|close|beforescriptexecute|afterscriptexecute|message|error|abort|loadstart|loadend|loadprogress|canplay|canplaythrough|durationchange|emptied|ended|loadeddata|loadedmetadata|pause|play|playing|progress|ratechange|seeked|seeking|stalled|suspend|timeupdate|volumechange|waiting))\\s*=\\s*[\"']?\\s*(?:(?:j\\s*a\\s*v\\s*a\\s*s\\s*c\\s*r\\s*i\\s*p\\s*t\\s*:|v\\s*b\\s*s\\s*c\\s*r\\s*i\\s*p\\s*t\\s*:)|(?:d\\s*a\\s*t\\s*a\\s*:\\s*t\\s*e\\s*x\\s*t\\s*\\/\\s*h\\s*t\\s*m\\s*l)|(?:e\\s*x\\s*p\\s*r\\s*e\\s*s\\s*s\\s*i\\s*o\\s*n\\s*\\()|(?:&#(?:x[0-9a-fA-F]{1,4}|[0-9]{1,5});|\\\\[xX][0-9a-fA-F]{2,4}){2,})[^\"']*[\"']?/i","severity":"high","description":"XSS: on* event handlers con javascript:, data:text/html, vbscript: o expression()","target":"all","condition":["YGB_Escudo_2_WAF_Callbacks","check_xss_allowed"],"added_in":"5.22.42"},
