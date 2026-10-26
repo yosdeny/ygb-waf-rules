@@ -92,7 +92,7 @@
     {"num":253,"id":"REST-PERPAGE-DOS","pattern":"/per_page=(?:5[1-9]|[6-9]\\d|\\d{3,})\\b/","severity":"medium","description":"Valor per_page excesivo en REST API (posible DoS)","target":"query","condition":["YGB_Escudo_2_WAF_Callbacks","check_user_not_logged_in"],"added_in":"6.1.5"},
     {"num":254,"id":"GUTENBERG-BLOCK-XSS","pattern":"/<!--\\s+wp:(?:[a-z][a-z0-9_-]*\\/)?(?:[a-z][a-z0-9_-]*)\\s+\\{[^}]*(?:\\b|\\d)+(?:on(?:abort|activate|click|dblclick|error|focus|keydown|keypress|keyup|load|mousedown|mousemove|mouseout|mouseover|mouseup|submit)|formaction|data\\-bind|ev:event)[^}]*[\\s+}]+\\s+\\/?-->/ix","severity":"high","description":"Stored XSS vía Gutenberg Block","target":"post","condition":["YGB_Escudo_2_WAF_Callbacks","check_user_can_unfiltered_html"],"added_in":"6.1.5"},
     {"num":255,"id":"GUTENBERG-JS-URL","pattern":"/<!--\\s+wp:(?:[a-z][a-z0-9_-]*\\/)?(?:[a-z][a-z0-9_-]*)\\s+\\{[^}]*(?:\\b|\\d)+javascript:[^}]*[\\s+}]+\\s+\\/?-->/ix","severity":"high","description":"Stored XSS vía JavaScript en URL de bloque","target":"post","condition":["YGB_Escudo_2_WAF_Callbacks","check_user_can_unfiltered_html"],"added_in":"6.1.5"},
-    {"num":256,"id":"PRIVESC-META","pattern":"/^administrator|editor|shop_manager|manage_options|promote_users|unfiltered_html|install_plugins|install_themes$/i","severity":"high","description":"Escalada de privilegios vía user meta","target":"post","condition":{"type":"user_cannot_manage_options"},"added_in":"6.1.5","fixed_in":"6.6.18","fix_ref":"J-01"},
+    {"num":256,"id":"PRIVESC-META","pattern":"/^(?:administrator|editor|shop_manager|manage_options|promote_users|unfiltered_html|install_plugins|install_themes)$/i","severity":"high","description":"Escalada de privilegios vía user meta","target":"post","condition":{"type":"user_cannot_manage_options"},"added_in":"6.1.5","fixed_in":"7.1.18","fix_ref":"Alternation anclada con grupo no capturador"},
     {"num":257,"id":"WP-GDPR-EXPLOIT","pattern":"/^(?:nopriv_)?wpgdprc_process_action$/i","severity":"critical","description":"WP GDPR Compliance <= 1.4.2 – Arbitrary Options Update","target":"query|post","condition":{"operator":"AND","conditions":[{"type":"param_equals","param":"action","value":"wpgdprc_process_action"},{"type":"user_not_admin"}]},"added_in":"6.1.5"},
     {"num":258,"id":"KIWI-SOCIAL-EXPLOIT","pattern":"/^(?:nopriv_)?kiwi_social_share_set_option$/i","severity":"critical","description":"Kiwi Social Share <= 2.0.10 – Unauthenticated Options Update","target":"query|post","condition":{"operator":"AND","conditions":[{"type":"param_contains","param":"action","value":"kiwi_social_share_set_option"},{"type":"user_not_admin"}]},"added_in":"6.1.5"},
     {"num":259,"id":"CONVERTPLUS-ADMIN","pattern":"/cp_add_subscriber/i","severity":"critical","description":"Convert Plus <= 3.4.2 – Unauthenticated Admin Creation","target":"query|post","condition":{"operator":"AND","conditions":[{"type":"param_equals","param":"action","value":"cp_add_subscriber"},{"type":"param_exists","param":"cp_set_user"},{"type":"user_not_admin"}]},"added_in":"6.1.5"},
@@ -145,10 +145,10 @@
     {"num":311,"id":"JHSOFT-UPLOAD-DOWNLOAD-LFI","pattern":"#/JHSoft\\.Web\\.CustomQuery/UploadFileDownLoadnew\\.aspx#i","severity":"critical","description":"JHSoft Web CustomQuery UploadFileDownLoadnew.aspx - Directory Traversal / Arbitrary File Read","target":"uri","condition":["YGB_Escudo_2_WAF_Callbacks","check_user_not_logged_in"],"added_in":"6.7.3"},
     {"num":312,"id":"EVENTS-CALENDAR-OBJI","pattern":"#<!--\\s*wp:legacy-widget#i","severity":"critical","description":"The Events Calendar <= 6.17.4 - PHP Object Injection via legacy-widget comment block","target":"post|jsonBody","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"the-events-calendar","version":"6.17.5"},{"type":"user_cannot_manage_options"}]},"added_in":"7.0.9"},
     {"num":313,"id":"TUTOR-WITHDRAW-OBJI","pattern":"/tutor_save_withdraw_account/i","severity":"critical","description":"Tutor LMS <= 4.0.7 - PHP Object Injection via withdraw_method_field","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"tutor","version":"4.0.8"},{"type":"param_exists","param":"withdraw_method_field"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9"},
-    {"num":314,"id":"SALON-BOOKING-AUTH-BYPASS","pattern":"#/wp-json/salon/(?:v1|custom)/#i|auth_scope=(?:%22|\")?salon","severity":"critical","description":"Salon Booking System <= 10.31.4 - Authentication Bypass via auth_scope=salon","target":"uri|query|headers","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"salon-booking-system","version":"10.31.5"},{"type":"header_exists","header":"Access-Token"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9"},
+    {"num":314,"id":"SALON-BOOKING-AUTH-BYPASS","pattern":"#(?:/wp-json/salon/(?:v1|custom)/|auth_scope=(?:%22|\")?salon)#i","severity":"critical","description":"Salon Booking System <= 10.31.4 - Authentication Bypass via auth_scope=salon","target":"uri|query|headers","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"salon-booking-system","version":"10.31.5"},{"type":"header_exists","header":"Access-Token"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9","fixed_in":"7.1.18","fix_ref":"Alternation anidada dentro del delimitador"},
     {"num":315,"id":"WPMUDEV-UPDATES-AUTH-BYPASS","pattern":"#/wp-admin/admin-ajax\\.php.*action=(?:nopriv_)?wdpsso_step2#i","severity":"critical","description":"WPMU DEV Updates <= 5.0.1 - Authentication Bypass via wdpsso_step2 AJAX action","target":"uri|post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"wpmudev-updates","version":"5.0.2"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9"},
     {"num":316,"id":"WPMUDEV-HUB-AUTH-BYPASS","pattern":"#(?:^|[?&])wpmudev-hub(?:=|&|$)#i","severity":"critical","description":"WPMU DEV Updates <= 5.0.0 - Auth bypass via wpmudev-hub + Wdp-Auth header","target":"query|headers","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"wpmudev-updates","version":"5.0.1"},{"type":"header_exists","header":"Wdp-Auth"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9"},
-    {"num":317,"id":"KIRKI-PRIVESC-FORGOT","pattern":"#/wp-json/KirkiComponentLibrary/v1/kirki-forgot-password#i|reset_link","severity":"critical","description":"Kirki <= 6.2.0 - Privilege Escalation via kirki-forgot-password + emailBody reset_link","target":"uri|post","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"kirki","version":"6.2.1"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9"},
+    {"num":317,"id":"KIRKI-PRIVESC-FORGOT","pattern":"#(?:/wp-json/KirkiComponentLibrary/v1/kirki-forgot-password|reset_link)#i","severity":"critical","description":"Kirki <= 6.2.0 - Privilege Escalation via kirki-forgot-password + emailBody reset_link","target":"uri|post","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"kirki","version":"6.2.1"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9","fixed_in":"7.1.18","fix_ref":"Alternation anidada dentro del delimitador"},
     {"num":318,"id":"KIRKI-COMMENT-XSS","pattern":"#/wp-json/KirkiComponentLibrary/v1/kirki-comment#i","severity":"high","description":"Kirki <= 6.1.1 - XSS via kirki-comment endpoint with encoded <script>","target":"uri|post","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"kirki","version":"6.1.2"},{"type":"user_cannot_manage_options"}]},"added_in":"7.0.9"},
     {"num":319,"id":"FUSION-BUILDER-INSTAGRAM-RCE","pattern":"#/wp-admin/admin-ajax\\.php.*action=awb_instagram_get_data#i","severity":"critical","description":"Fusion Builder <= 3.16 - RCE via awb_instagram_get_data + action_hook arg","target":"uri|post","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"fusion-builder","version":"3.16.1"},{"type":"user_cannot_manage_options"}]},"added_in":"7.0.9"},
     {"num":320,"id":"ARVE-BACKDOOR-WPLOGIN","pattern":"#(?:^|[?&])_wplogin=[A-Za-z0-9_-]{24}(?:&|$)#","severity":"critical","description":"ARVE <= 10.8.7 - Backdoor via _wplogin parameter (24-char token)","target":"query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"advanced-responsive-video-embedder","version":"10.8.8"},{"type":"user_not_logged_in"}]},"added_in":"7.0.9"},
@@ -183,7 +183,7 @@
     {"num":349,"id":"ELEMENTOR-PRO-FORM-FIELDS-RCE","pattern":"#form_fields[^&]*=[^&]*(?:%5B|\\[)elementor-[^\\]]*\\bdata\\s*=#i","severity":"critical","description":"Elementor Pro <= 4.2.4 - RCE via form_fields payload (shortcode injection con data=)","target":"post","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"elementor-pro","version":"4.2.5"},{"type":"user_not_admin"}]},"added_in":"7.1.2","fixed_in":"7.1.4"},
     {"num":350,"id":"WP-CORE-7.0.2-BATCH-RCE","pattern":"#(?:/wp-json/batch/v1/|[?&]rest_route=(?:/|%2[fF])batch(?:/|%2[fF])v1)#i","severity":"critical","description":"WordPress Core 6.9-6.9.4 y 7.0-7.0.1 - RCE vía REST batch/v1 (CVE-2025-XXXX)","target":"uri|query","condition":{"operator":"AND","conditions":[{"operator":"OR","conditions":[{"operator":"AND","conditions":[{"type":"core_version_greater_than_or_equal","version":"6.9"},{"type":"core_version_less_than_or_equal","version":"6.9.4"}]},{"operator":"AND","conditions":[{"type":"core_version_greater_than_or_equal","version":"7.0"},{"type":"core_version_less_than_or_equal","version":"7.0.1"}]}]},{"type":"current_user_cannot_cap","capability":"manage_options"}]},"added_in":"7.1.4","source":"wordfence-933"},
     {"num":351,"id":"WP-CORE-7.0.3-REFLECTED-XSS","pattern":"#<#","severity":"high","description":"WordPress Core < 7.0.3 - Pre-auth reflected XSS via log/user_login en wp-login.php","target":"post","condition":{"operator":"AND","conditions":[{"type":"uri_matches","pattern":"#/wp\\-login\\.php#i"},{"type":"core_version_less_than","version":"7.0.3"},{"operator":"OR","conditions":[{"type":"param_contains","param":"log","value":"<"},{"type":"param_contains","param":"user_login","value":"<"}]}]},"added_in":"7.1.4","source":"wordfence-943"},
-    {"num":352,"id":"WP-CORE-7.1-WPAUTOP-XSS","pattern":"#<blockquote[^>]*cite\\s*=\\s*(?:\\x22[^\\x22>]*|\\x27[^\\x27>]*)(?>(?:\\r|&#0*13;|&#x0*d;)(?:\\n|&#0*10;|&#x0*a;)?|\\n|&#0*10;|&#x0*a;)[^\\S\\r\\n]*(?>(?:\\r|&#0*13;|&#x0*d;)(?:\\n|&#0*10;|&#x0*a;)?|\\n|&#0*10;|&#x0*a;)#i","severity":"high","description":"WordPress Core <= 7.1 - Stored XSS via wpautop() blockquote handling","target":"post","condition":{"operator":"AND","conditions":[{"type":"core_version_less_than_or_equal","version":"7.1"},{"operator":"OR","conditions":[{"type":"uri_matches","pattern":"#/wp\\-comments\\-post\\.php$#i"},{"type":"uri_matches","pattern":"#/wp\\-json/wp/v2/comments#i"},{"type":"param_exists","param":"rest_route"}]}]},"added_in":"7.1.4","source":"wordfence-958"},
+    {"num":352,"id":"WP-CORE-7.1-WPAUTOP-XSS","pattern":"/<blockquote[^>]*cite\\s*=\\s*(?:\\x22[^\\x22>]*|\\x27[^\\x27>]*)(?>(?:\\r|&#0*13;|&#x0*d;)(?:\\n|&#0*10;|&#x0*a;)?|\\n|&#0*10;|&#x0*a;)[^\\S\\r\\n]*(?>(?:\\r|&#0*13;|&#x0*d;)(?:\\n|&#0*10;|&#x0*a;)?|\\n|&#0*10;|&#x0*a;)/i","severity":"high","description":"WordPress Core <= 7.1 - Stored XSS via wpautop() blockquote handling","target":"post","condition":{"operator":"AND","conditions":[{"type":"core_version_less_than_or_equal","version":"7.1"},{"operator":"OR","conditions":[{"type":"uri_matches","pattern":"#/wp\\-comments\\-post\\.php$#i"},{"type":"uri_matches","pattern":"#/wp\\-json/wp/v2/comments#i"},{"type":"param_exists","param":"rest_route"}]}]},"added_in":"7.1.4","source":"wordfence-958","fixed_in":"7.1.18","fix_ref":"Delimitador '/' para evitar # literales en &#0*13; y similares"},
     {"num":353,"id":"LEARNPRESS-LFI","pattern":"#(?:/|%2[fF])(?:(?:\\.|%2[eE])(?:/|%2[fF]))*(?:var|usr|mnt|etc|tmp|dev|proc|home)(?:/|%2[fF])|(?:\\.|%2[eE])(?:\\.|%2[eE])(?:\\\\|/|%2[fF]|%5[cC])#i","severity":"critical","description":"LearnPress <= 4.1.7.3.2 - Unauthenticated Local File Inclusion en /lp/v1/","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than_or_equal","plugin":"learnpress","version":"4.1.7.3.2"},{"operator":"OR","conditions":[{"type":"uri_matches","pattern":"#/lp/v1/#i"},{"type":"param_contains","param":"rest_route","value":"/lp/v1/"}]}]},"added_in":"7.1.4","source":"wordfence-537"},
     {"num":354,"id":"LEARNPRESS-SQLI","pattern":"#(?:\\bUNION\\b[\\s\\S]{0,200}?\\bSELECT\\b|\\bSLEEP\\s*\\(|\\bBENCHMARK\\s*\\(|\\bEXTRACTVALUE\\s*\\(|\\bUPDATEXML\\s*\\(|'\\s*OR\\s*'?1'?\\s*=\\s*'?1|\\bOR\\s+\\d+\\s*=\\s*\\d+)#i","severity":"critical","description":"LearnPress <= 4.1.7.3.2 - Unauthenticated SQL Injection en /lp/v1/ endpoints","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than_or_equal","plugin":"learnpress","version":"4.1.7.3.2"},{"operator":"OR","conditions":[{"type":"uri_matches","pattern":"#/lp/v1/#i"},{"type":"param_contains","param":"rest_route","value":"/lp/v1/"}]}]},"added_in":"7.1.4","source":"wordfence-538"},
     {"num":355,"id":"WORDFENCE-68-MALICIOUS-FILE-UPLOAD-PATTERNS","pattern":"/\\.(p(h(pt?|t(ml?)?|ar)[0-9]?|l|y)|(j|a)sp|aspx|sh|shtml|html?|cgi|htaccess|user\\.ini)($|\\.)/i","severity":"critical","description":"Malicious File Upload (Patterns) [Wordfence 68]","target":"fileNames","condition":{"operator":"AND","conditions":[{"type":"current_user_is_not_role","role":"administrator"},{"type":"current_user_is_not_role","role":"editor"},{"type":"current_user_is_not_role","role":"author"}]},"added_in":"7.1.6","source":"wordfence-68"},
@@ -219,7 +219,7 @@
     {"num":385,"id":"WORDFENCE-223-PRODUCT-IMPORT-EXPORT-WOOCOMMERCE-MISSING-AUTH","pattern":"/woocommerce_csv_import_request/i","severity":"critical","description":"Product Import Export for WooCommerce <= 1.7.3 - Missing Authorization [Wordfence 223]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"param_equals","param":"action","value":"woocommerce_csv_import_request"},{"type":"current_user_cannot_cap","capability":"edit_others_posts"}]},"added_in":"7.1.6","source":"wordfence-223"},
     {"num":386,"id":"WORDFENCE-539-EXTENDED-XSS-JSON-BODY","pattern":"/(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html)/i","severity":"high","description":"Extended XSS for JSON Body Content [Wordfence 539]","target":"jsonBody","condition":{"type":"current_user_cannot_cap","capability":"unfiltered_html"},"added_in":"7.1.6","source":"wordfence-539"},
     {"num":387,"id":"WORDFENCE-553-WP-META-SEO-MISSING-AUTH-STARTPROCESS","pattern":"/^(?:wpms_regenerate_sitemaps|wpms_save_sitemap_settings|wpms_list_posts_category|wpms_sitemap_check_all_category|wpms_gg_save_information|wpms_set_ignore)$/i","severity":"critical","description":"WP Meta SEO <= 4.5.3 - Missing Authorization [Wordfence 553]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"param_equals","param":"action","value":"wpms"},{"type":"current_user_cannot_cap","capability":"edit_posts"}]},"added_in":"7.1.6","source":"wordfence-553"},
-    {"num":388,"id":"WORDFENCE-554-UNIVERSAL-PRIVESC-DETECTION","pattern":"#^administrator|editor|shop_manager|manage_options|promote_users|unfiltered_html|install_plugins|install_themes$#i","severity":"high","description":"Universal Privilege Escalation Detection Rule [Wordfence 554]","target":"post|jsonBody","condition":{"operator":"AND","conditions":[{"type":"param_keys_match","param":"post","pattern":"#(?:role|cap)#i"},{"type":"current_user_cannot_cap","capability":"edit_posts"}]},"added_in":"7.1.6","source":"wordfence-554"},
+    {"num":388,"id":"WORDFENCE-554-UNIVERSAL-PRIVESC-DETECTION","pattern":"#^(?:administrator|editor|shop_manager|manage_options|promote_users|unfiltered_html|install_plugins|install_themes)$#i","severity":"high","description":"Universal Privilege Escalation Detection Rule [Wordfence 554]","target":"post|jsonBody","condition":{"operator":"AND","conditions":[{"type":"param_keys_match","param":"post","pattern":"#(?:role|cap)#i"},{"type":"current_user_cannot_cap","capability":"edit_posts"}]},"added_in":"7.1.6","source":"wordfence-554","fixed_in":"7.1.18","fix_ref":"Alternation anclada con grupo no capturador. Nota: param_keys_match('post') solo detecta claves de $_REQUEST['post'] (formularios post[...]). Requiere callback custom para claves top-level."},
     {"num":389,"id":"WORDFENCE-559-OOOHBOI-STEROIDS-MISSING-AUTH","pattern":"/^(?:exopite-sof-file_uploader|exopite-sof-file-batch-delete)$/i","severity":"critical","description":"OoohBoi Steroids for Elementor <= 2.1.3 - Missing Authorization [Wordfence 559]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"upload_files"}]},"added_in":"7.1.6","source":"wordfence-559"},
     {"num":390,"id":"WORDFENCE-561-YOAST-SEO-STORED-XSS","pattern":"/yoast_wpseo_title/i","severity":"high","description":"Yoast SEO <= 20.2 - Authenticated (Contributor+) Cross-Site Scripting [Wordfence 561]","target":"post","condition":{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"unfiltered_html"},{"type":"uri_matches","pattern":"#/wp-admin/post\\.php$#i"}]},"added_in":"7.1.6","source":"wordfence-561"},
     {"num":391,"id":"WORDFENCE-567-SQUIRRLY-SEO-MISSING-AUTH","pattern":"/^(?:sq_ajax_search_blog|sla_checkin|sla_keywords|sla_preview|sla_tasks|sla_briefcase_get|sla_briefcase_add|sla_briefcase_delete|sla_briefcase_save|sla_customcall|sq_ajax_research_process|sq_ajax_research_others|sq_ajax_research_history|sq_journey_close|sq_auditpages_getaudit|sq_focuspages_inspecturl|sq_focuspages_getpage|sq_ranking_settings|sq_serp_delete_keyword|sq_ajax_rank_bulk_delete|sq_ajax_rank_bulk_refresh|sq_ajax_postslist|sq_onboarding_commitment)$/i","severity":"critical","description":"SEO Plugin by Squirrly SEO <= 12.1.20 - Missing Authorization [Wordfence 567]","target":"post|query","condition":{"operator":"OR","conditions":[{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"edit_others_posts"}]},{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"manage_options"},{"type":"param_equals","param":"action","value":"inline-save"},{"type":"current_user_cannot_cap","capability":"edit_posts"}]}]},"added_in":"7.1.6","source":"wordfence-567"},
@@ -227,7 +227,7 @@
     {"num":393,"id":"WORDFENCE-651-UA-GENERIC-XSS-META","pattern":"/(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html)/i","severity":"high","description":"UA Custom Page Level CSS XSS [Wordfence 651]","target":"post","condition":{"operator":"AND","conditions":[{"type":"param_exists","param":"_uag_custom_page_level_css"},{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-651"},
     {"num":394,"id":"WORDFENCE-663-GENERIC-XSS-CUSTOM-META","pattern":"/(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html)/i","severity":"high","description":"Generic XSS in Custom Meta [Wordfence 663]","target":"post","condition":{"operator":"AND","conditions":[{"type":"param_exists","param":"meta"},{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-663"},
     {"num":395,"id":"WORDFENCE-667-STORED-XSS-BLOCK","pattern":"/<!--\\s+wp:(?:[a-z][a-z0-9_-]*\\/)?(?:[a-z][a-z0-9_-]*)\\s+\\{[^}]*(?:\\b|\\d)+(on(?:abort|activate|click|dblclick|error|focus|keydown|keyup|keypress|load|mousedown|mousemove|mouseout|mouseover|mouseup|submit)|formaction|data\\-bind|ev:event)[^}]*[\\s+}]+\\s+\\/?-->/ix","severity":"high","description":"Stored Cross-Site Scripting via Block [Wordfence 667]","target":"post|jsonBody|rawBody","condition":{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-667"},
-    {"num":396,"id":"WORDFENCE-688-FORMINATOR-STORED-XSS","pattern":"/\\[forminator_form#/","severity":"high","description":"Forminator <= 1.29.2 - Stored XSS [Wordfence 688]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than_or_equal","plugin":"forminator","version":"1.29.2"},{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-688"},
+    {"num":396,"id":"WORDFENCE-688-FORMINATOR-STORED-XSS","pattern":"/\\[forminator_form/","severity":"high","description":"Forminator <= 1.29.2 - Stored XSS [Wordfence 688]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than_or_equal","plugin":"forminator","version":"1.29.2"},{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-688","fixed_in":"7.1.18","fix_ref":"Eliminado '#' residual del patrón"},
     {"num":397,"id":"WORDFENCE-689-WP-CORE-AVATAR-STORED-XSS","pattern":"/(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html)/i","severity":"high","description":"WordPress Core < 6.5.2 - Authenticated (Contributor+) Stored XSS via Avatar Block [Wordfence 689]","target":"post","condition":{"operator":"AND","conditions":[{"type":"uri_matches","pattern":"#/wp\\-admin/(network/)?profile\\.php$#i"},{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-689"},
     {"num":398,"id":"WORDFENCE-706-USERFEEDBACK-STORED-XSS","pattern":"/(?:<script|javascript:|on[a-z]+\\s*=|data:text\\/html|<iframe|<svg|<embed|<object)/i","severity":"high","description":"UserFeedback - Stored XSS via answers[*].extra.name [Wordfence 706]","target":{"path":"request.jsonBody.answers","transforms":[["filterKeys","/extra/","/name/"]]},"condition":{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"unfiltered_html"},{"type":"uri_matches","pattern":"#/wp-json/userfeedback/v1/surveys/\\d+/responses#i"}]},"added_in":"7.1.6","source":"wordfence-706","fixed_in":"7.1.11","fix_ref":"Solución 3 - Acotar al campo real y al endpoint real"},
     {"num":399,"id":"WORDFENCE-709-STORED-XSS-BLOCK-ATTRIBUTE-JS-URL","pattern":"/<!--\\s+wp:(?:[a-z][a-z0-9_-]*\\/)?(?:[a-z][a-z0-9_-]*)\\s+\\{[^}]*(?:\\b|\\d)+javascript\\:[^}]*[\\s+}]+\\s+\\/?-->/ix","severity":"high","description":"Stored Cross-Site Scripting via Block Attribute (Javascript in URL) [Wordfence 709]","target":"post|jsonBody|rawBody","condition":{"operator":"AND","conditions":[{"type":"current_user_cannot_cap","capability":"unfiltered_html"}]},"added_in":"7.1.6","source":"wordfence-709"},
@@ -242,8 +242,135 @@
     {"num":408,"id":"WORDFENCE-570-ELEMENTOR-PRO-PRIVESC","pattern":"/pro_woocommerce_update_page_option/i","severity":"critical","description":"Elementor Pro <= 3.11.6 - Authenticated (Subscriber+) PrivEsc via update_page_option [Wordfence 570]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than_or_equal","plugin":"elementor-pro","version":"3.11.6"},{"type":"param_equals","param":"action","value":"elementor_ajax"},{"type":"current_user_is_not_role","role":"administrator"}]},"added_in":"7.1.17","source":"wordfence-570"},
     {"num":409,"id":"WORDFENCE-606-JETPACK-FILE-MANIP","pattern":"#https://public-api\\.wordpress\\.com/rest/v\\d+(\\.\\d+)?/sites/\\d+/media/\\d+/edit#i","severity":"critical","description":"Jetpack <= 12.1 - Authenticated (Author+) Arbitrary File Manipulation [Wordfence 606]","target":"all","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"jetpack","version":"12.1.1"},{"type":"current_user_is_not_role","role":"administrator"}]},"added_in":"7.1.17","source":"wordfence-606"},
     {"num":410,"id":"WORDFENCE-459-UPDRAFTPLUS-AUTH-BYPASS","pattern":"/^(?:updraft_download_backup|updraft_central_ajax)$/i","severity":"critical","description":"UpdraftPlus < 1.22.3 - Sensitive Information Disclosure [Wordfence 459]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"updraftplus","version":"1.22.3"},{"type":"current_user_is_not_role","role":"administrator"}]},"added_in":"7.1.17","source":"wordfence-459"},
-    {"num":411,"id":"WORDFENCE-562-PAID-MEMBERSHIPS-SQLI","pattern":"/\\[membership[^\\]]+levels=['\\\"][^'\\\"]*[^\\d,]#i","severity":"critical","description":"Paid Memberships Pro <= 2.9.11 - Authenticated (Subscriber+) SQL Injection via Shortcodes [Wordfence 562]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"paid-memberships-pro","version":"2.9.12"},{"type":"current_user_is_not_role","role":"administrator"}]},"added_in":"7.1.17","source":"wordfence-562"},
-    {"num":412,"id":"WORDFENCE-379-WC-SQLI-URL-ENCODE","pattern":"/%25[0-9a-fA-F]{2}/","severity":"critical","description":"WooCommerce < 5.5.1 - SQL Injection via URL Encode Bypass [Wordfence 379]","target":"post|rawBody","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"woocommerce","version":"5.5.1"},{"type":"uri_matches","pattern":"#/wc/store/products/collection-data#i"}]},"added_in":"7.1.17","source":"wordfence-379"},
-    {"num":413,"id":"WORDFENCE-380-WC-SQLI-DOUBLE-ENCODE","pattern":"/%2525[0-9a-fA-F]{2}/","severity":"critical","description":"WooCommerce < 5.5.1 - SQL Injection via Double URL Encode Bypass [Wordfence 380]","target":"uri","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"woocommerce","version":"5.5.1"},{"type":"uri_matches","pattern":"#/wc/store/products/collection-data#i"}]},"added_in":"7.1.17","source":"wordfence-380"}
-  ]
+    {"num":411,"id":"WORDFENCE-562-PAID-MEMBERSHIPS-SQLI","pattern":"/\\[membership[^\\]]+levels=['\\\"][^'\\\"]*[^\\d,]/i","severity":"critical","description":"Paid Memberships Pro <= 2.9.11 - Authenticated (Subscriber+) SQL Injection via Shortcodes [Wordfence 562]","target":"post|query","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"paid-memberships-pro","version":"2.9.12"},{"type":"current_user_is_not_role","role":"administrator"}]},"added_in":"7.1.17","source":"wordfence-562","fixed_in":"7.1.18","fix_ref":"Añadido '/' de cierre antes de 'i'"},
+    {"num":412,"id":"WORDFENCE-379-WC-SQLI-URL-ENCODE","pattern":"/%25[0-9a-fA-F]{2}/","severity":"critical","description":"WooCommerce < 5.5.1 - SQL Injection via URL Encode Bypass [Wordfence 379]","target":"post","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"woocommerce","version":"5.5.1"},{"type":"uri_matches","pattern":"#/wc/store/products/collection-data#i"}]},"added_in":"7.1.17","source":"wordfence-379","note":"Limitación conocida: el extractor hace 1 decode sobre 'post', así que %25xx crudo llega como %xx. Redundante con reglas SQLi que actúan sobre el contenido decodificado. Requiere target sin decode para activarse."},
+    {"num":413,"id":"WORDFENCE-380-WC-SQLI-DOUBLE-ENCODE","pattern":"/%25[0-9a-fA-F]{2}/","severity":"critical","description":"WooCommerce < 5.5.1 - SQL Injection via Double URL Encode Bypass [Wordfence 380]","target":"rawBody","condition":{"operator":"AND","conditions":[{"type":"plugin_version_less_than","plugin":"woocommerce","version":"5.5.1"},{"type":"uri_matches","pattern":"#/wc/store/products/collection-data#i"}]},"added_in":"7.1.17","source":"wordfence-380","fixed_in":"7.1.18","fix_ref":"Target cambiado a rawBody (1 decode). Detecta %2525xx crudo → %25xx tras decode."}
+  ],
+  "__documentation__": {
+    "warning": "Este bloque es documentación. No forma parte de las reglas y el loader lo ignora.",
+    "reglas_de_oro": [
+      "1. Cada regla debe tener: num, id, pattern, severity, description, target.",
+      "2. num es el índice original. El loader los renumera después. No necesita ser único.",
+      "3. id debe ser ÚNICO y estable. Formato recomendado: CVE-XXXX-XXXXX o PRODUCTO-TIPO.",
+      "4. severity debe ser uno de: low, medium, high, critical.",
+      "5. description es texto plano, sin HTML, en español.",
+      "6. target indica QUÉ se escanea. Ver tabla de targets abajo."
+    ],
+    "delimitadores_pcre": {
+      "regla": "El primer carácter del pattern es el delimitador. El último carácter (antes de los flags) es el mismo delimitador.",
+      "ejemplos": [
+        "/patrón/i   → delimitador '/'",
+        "#patrón#i   → delimitador '#'",
+        "@patrón@i   → delimitador '@'",
+        "~patrón~i   → delimitador '~'"
+      ],
+      "cuando_usar_cada_uno": {
+        "/": "Por defecto. Si el patrón contiene /, escápalo como \\/.",
+        "#": "Cuando el patrón contiene muchas / (URLs). Si contiene #, escápalo como \\#.",
+        "@": "Cuando el patrón contiene / y #.",
+        "~": "Alternativa a @."
+      },
+      "reglas_estrictas": [
+        "NUNCA dejes el delimitador abierto (falta el cierre → preg_match falla).",
+        "NUNCA pongas operadores fuera del delimitador: 'a|b' mal, '(?:a|b)' o 'a|b' dentro del delimitador.",
+        "NUNCA mezcles delimitadores: '#' al inicio y '/' al final → error.",
+        "Si el patrón contiene el delimitador, escápalo: \\# \\/ \\@ \\~.",
+        "Los flags (i, m, s, x, u) van INMEDIATAMENTE después del delimitador de cierre.",
+        "Los patrones que empiezan por # y contienen # dentro deben usar otro delimitador."
+      ],
+      "patrones_invalidos_frecuentes": [
+        "#patrón#i|algo_más           → el | está fuera del delimitador. Envolver: #(?:patrón|algo_más)#i",
+        "/patrón#i                   → falta el / de cierre. Añadir: /patrón/i",
+        "#patrón                     → falta el # de cierre.",
+        "#&#0*13;...#               → el # dentro cierra el delimitador. Cambiar a /&#0*13;.../ o escapar \\#"
+      ]
+    },
+    "targets_validos": {
+      "uri": "URI completa (doble decode).",
+      "raw_uri": "URI sin decodificar.",
+      "path": "Solo el path de la URI (doble decode).",
+      "query": "Query string (doble decode).",
+      "raw_query": "Query string sin decodificar.",
+      "double_decoded_uri": "URI con triple decode (para evasiones extremas).",
+      "post": "Body POST (form-urlencoded o JSON, decodificado 1 vez).",
+      "rawBody": "Body POST crudo (decodificado 1 vez).",
+      "jsonBody": "Body interpretado como JSON.",
+      "cookies": "Cookies concatenadas (1 decode).",
+      "user_agent": "User-Agent (sin decode).",
+      "referer": "Referer (sin decode).",
+      "headers": "Todas las cabeceras concatenadas.",
+      "raw_headers": "Cabeceras crudas.",
+      "files_content": "Contenido de los archivos subidos (sin decode).",
+      "fileNames": "Nombres de los archivos subidos.",
+      "method": "Método HTTP.",
+      "ip": "IP del cliente.",
+      "all": "Todo lo anterior (por componente, con su nivel de decode).",
+      "main": "uri + query + post.",
+      "multi": "usa 'uri|query|post' para combinar varios."
+    },
+    "condiciones": {
+      "formatos": [
+        "String con nombre de callback: \"check_user_not_admin\"",
+        "Array [clase, método]: [\"YGB_Escudo_2_WAF_Callbacks\", \"check_user_not_admin\"]",
+        "Condición tipada: {\"type\": \"param_exists\", \"param\": \"foo\"}",
+        "Grupo AND/OR: {\"operator\": \"AND\", \"conditions\": [...]}"
+      ],
+      "tipos_soportados": [
+        "user_not_logged_in, user_is_logged_in, user_not_admin, user_is_admin",
+        "user_can_unfiltered_html, user_can_edit_posts, user_cannot_manage_options",
+        "current_user_is_role, current_user_is_not_role",
+        "current_user_can_cap, current_user_cannot_cap",
+        "param_equals, param_exists, param_contains, param_matches, param_not_matches",
+        "param_length_greater_than, param_length_less_than, param_keys_match",
+        "plugin_version_*, theme_version_*, core_version_*",
+        "header_equals, header_contains, header_exists",
+        "ip_in_range, method_equals, uri_matches, referer_matches, ua_matches"
+      ]
+    },
+    "transforms": {
+      "uso": "Solo en target estructurado: {\"path\": \"...\", \"transforms\": [[...], [...]]}",
+      "tipos": [
+        "[\"base64decode\"]",
+        "[\"json\"]",
+        "[\"urldecode\"]",
+        "[\"rawurldecode\"]",
+        "[\"pregReplace\", \"/patrón/\", \"reemplazo\"]",
+        "[\"filterKeys\", \"/regex1/\", \"/regex2/\", ...]  (navega claves anidadas por regex)"
+      ],
+      "ejemplo": "{\"path\": \"request.jsonBody.answers\", \"transforms\": [[\"filterKeys\", \"/extra/\", \"/name/\"]]}"
+    },
+    "checklist_antes_de_añadir_una_regla": [
+      "1. Elegir delimitador: / por defecto, # si el patrón contiene muchas /, otro si contiene ambos.",
+      "2. Verificar que el delimitador NO aparece sin escapar dentro del patrón.",
+      "3. Verificar que el delimitador de CIERRE está presente antes de los flags.",
+      "4. Verificar que los operadores | solo están DENTRO del delimitador.",
+      "5. Verificar que el id es único (grep en el archivo).",
+      "6. Verificar que severity es uno de: low, medium, high, critical.",
+      "7. Verificar que target es uno de los válidos.",
+      "8. Verificar que la condición (si existe) usa tipos soportados o callbacks existentes.",
+      "9. Validar la regex: php -r 'var_dump(preg_match(\"/tu_regex/\", \"\"));'",
+      "10. Confirmar que no duplica reglas existentes (mismo id)."
+    ],
+    "niveles_decode_por_target": {
+      "strict_doble_decode": ["uri", "raw_uri", "path", "query", "raw_query"],
+      "single_un_decode": ["post", "rawBody", "jsonBody", "cookies", "headers", "raw_headers"],
+      "none_sin_decode": ["user_agent", "referer", "files_content", "fileNames", "method", "ip", "double_decoded_uri", "double_decoded_query"]
+    },
+    "limitaciones_conocidas": [
+      "Regla 388 (WORDFENCE-554): param_keys_match('post') solo detecta claves de $_REQUEST['post'] (formularios con campos post[...]). No detecta role/capability top-level. Requiere callback custom.",
+      "Regla 412 (WORDFENCE-379): busca %25xx en post. El extractor hace 1 decode, así que el body crudo %25xx llega como %xx. No matchea. Redundante con reglas SQLi que actúan sobre el contenido decodificado.",
+      "Regla 413 (WORDFENCE-380): corregida a %25xx sobre rawBody (1 decode), que detecta lo que originalmente era %2525xx. Si se necesita doble encode puro, requiere target sin decode.",
+      "Reglas 149/253, 150/251, 156/252, 158/213, 75/241: duplicadas (misma detección desde distintas fuentes). Se mantienen por compatibilidad con imports; el loader las colapsa por id en runtime."
+    ],
+    "bugs_corregidos_en_v7_1_18": [
+      "Regla 256: alternation anclada con (?:...) — antes ^ y $ solo anclaban el primer y último término.",
+      "Regla 314: operador | fuera del delimitador # → PCRE 'Unknown modifier |'. Envuelto en #(?:...)#i.",
+      "Regla 317: mismo problema que 314. Envuelto en #(?:...)#i.",
+      "Regla 352: delimitador # con # literales en &#0*13; y similares. Cambiado a delimitador /.",
+      "Regla 388: alternation anclada con (?:...) — mismo bug que 256.",
+      "Regla 396: '#' residual del patrón. Eliminado: /\\[forminator_form/.",
+      "Regla 411: falta el / de cierre antes de i. Añadido: /...[^\\d,]/i.",
+      "Regla 413: target cambiado de uri a rawBody para que el patrón %25xx coincida tras 1 decode."
+    ]
+  }
 }
